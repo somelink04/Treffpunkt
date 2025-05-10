@@ -5,7 +5,7 @@ VALUES (1, 'Montag'),
        (4, 'Donnerstag'),
        (5, 'Freitag'),
        (6, 'Samstag'),
-       (7, 'Sonntag'),;
+       (7, 'Sonntag');
 
 INSERT INTO HOUR (HOUR_ID, HOUR_NAME)
 VALUES (1, 0), 
@@ -41,7 +41,7 @@ VALUES (1, 'männlich'),
        (3, 'divers');
 
 
-INSERT INTO USER (USER_ID, USER_FIRSTNAME, USER_SURNAME, USER_BIRTHDATE, USER_USERNAME, USER_EMAIL, USER_PASSWORT)
+INSERT INTO USER (USER_ID, USER_FIRSTNAME, USER_SURNAME, USER_BIRTHDATE, USER_USERNAME, USER_EMAIL, USER_PASSWORD)
 VALUES (1, 'Heinz', 'Müller', '1960-04-22', 'heinz60', 'heinz.mueller@example.de', 'geheim123'),
     (2, 'Sabrina', 'Koch', '1985-11-05', 'sabrina85', 'sabrina.koch@example.de', 'sicher456'),
     (3, 'Lukas', 'Schmidt', '2001-09-14', 'lukas01', 'lukas.schmidt@example.de', 'passwort789'),
