@@ -1,0 +1,23 @@
+Vorraussetzung ist, dass der mariadb server erstmal im selben netzwerk hängt (z.B. bridged connection bei virtual box)
+
+Meine Empfehlung: (kleine) Virtuelle Machine mit debian aufsetzten
+Anleitung für Win oder andere Distros sollte ähnlich sein
+
+Debian:
+    - sudo apt update && sudo apt upgrade
+    - sudo apt install mariadb-server
+    - sudo systemctl start mariadb.service
+    - sudo mysql_secure_installation
+        - root passwort eingeben
+        - Folge von Y/n: n, Y, Y, Y, Y
+        - (Falls man direct in der MariaDB Prompt ist: exit)
+    - sudo mariadb -u root (zum Testen)
+    - exit
+    - sudo mysql -u root < "path/to/create_db.sql"
+    - sudo vim /etc/mysql/mariadb.conf.d/50-server.cnf
+        - "bind-address = 127.0.0.1" auf "bind-address = 0.0.0.0 ändern
+    - sudo systemctl restart mariadb.service
+    - Zum Testen:
+        - sudo apt install net-tools
+        - sudo netstat -anp | grep 3306
+        - db_connection_test.py ausführen (IP anpassen)
