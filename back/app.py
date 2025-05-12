@@ -1,4 +1,5 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify
+import auth
 
 
 def create_app():
@@ -15,6 +16,9 @@ def create_app():
     @app.route(rule='/<path>')
     def get_front(path):
         return app.send_static_file('index.html')
+
+    auth.init_app(app)
+    app.register_blueprint(auth.bp)
 
     return app
 
