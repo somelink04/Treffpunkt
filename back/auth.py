@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify, abort
-from flask_jwt_extended import JWTManager, create_access_token
+from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 
@@ -19,4 +19,10 @@ def login():
         return jsonify(dict(access_token=access_token))
 
     else:
-        return abort(403)
+        return abort(401)
+
+@bp.route("/ident", methods=['GET'])
+@jwt_required
+def protected():
+    user = get_jwt_identity()
+    return jsonify(identity=user)
