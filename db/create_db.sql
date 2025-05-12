@@ -177,9 +177,3 @@ VALUES (1, 'Aach', '54298'), (2, 'Aach', '78267'), (3, 'Aachen', '52062'), (4, '
 
 -- https://gist.github.com/jbspeakr/4565964#file-german-zip-codes-csv csv von hier:D
 
-
-INSERT INTO USER (USER_FIRSTNAME, USER_SURNAME, USER_BIRTHDATE, USER_USERNAME, USER_EMAIL, USER_PASSWORD, USER_GENDER, USER_REGION)
-VALUES ('Heinz', 'Müller', '1960-04-22', 'heinz60', 'heinz.mueller@example.de', 'geheim123', 1, 13218),
-    ('Sabrina', 'Koch', '1985-11-05', 'sabrina85', 'sabrina.koch@example.de', 'sicher456', 2, 6838),
-    ('Lukas', 'Schmidt', '2001-09-14', 'lukas01', 'lukas.schmidt@example.de', 'passwort789', 1, 3160),
-    ('Emilia', 'Fischer', '2005-03-28', 'emilia05', 'emilia.fischer@example.de', 'meinpass999', 2, 406);
