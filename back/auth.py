@@ -22,7 +22,7 @@ def login():
         return abort(401)
 
 @bp.route("/ident", methods=['GET'])
-@jwt_required
+@jwt_required()
 def protected():
     user = get_jwt_identity()
     return jsonify(identity=user)
