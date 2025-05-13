@@ -15,3 +15,8 @@ def create_app():
     app.register_blueprint(auth.bp)
 
     return app
+
+# for just running this file
+if __name__ == '__main__':
+    server = create_app()
+    server.run()
