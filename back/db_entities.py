@@ -1,6 +1,6 @@
-from datetime import date
+from datetime import date, datetime
 from typing import List, Optional
-from sqlalchemy import Integer, String, VARCHAR, CHAR, Float, DATE
+from sqlalchemy import Integer, VARCHAR, CHAR, Float, ForeignKey, DATETIME
 from sqlalchemy.dialects.mysql import TINYTEXT
 from sqlalchemy.orm import Mapped, mapped_column, relationship, DeclarativeBase
 
@@ -45,16 +45,25 @@ class User(Base):
     USER_USERNAME: Mapped[str] = mapped_column(VARCHAR(50), unique=True)
     USER_EMAIL: Mapped[str] = mapped_column(VARCHAR(50), unique=True)
     USER_PASSWORD: Mapped[str] = mapped_column(TINYTEXT)
-    fullname: Mapped[Optional[str]]
-    addresses: Mapped[List["Address"]] = relationship(back_populates="user")
-    def __repr__(self) -> str:
-        return f"User(id={self.id!r}, name={self.name!r}, fullname={self.fullname!r})"
+    USER_GENDER: Mapped[int] = mapped_column(ForeignKey("Gender.GENDER_ID"))
+    USER_REGION: Mapped[int] = mapped_column(ForeignKey("Region.REGION_ID"))
 
-class Address(Base):
-    __tablename__ = "address"
-    id: Mapped[int] = mapped_column(primary_key=True)
-    email_address: Mapped[str]
-    user_id = mapped_column(ForeignKey("user_account.id"))
-    user: Mapped[User] = relationship(back_populates="addresses")
-    def __repr__(self) -> str:
-        return f"Address(id={self.id!r}, email_address={self.email_address!r})"
+class UserTime(Base):
+    USER_TIME_ID: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
+    HOUR_USER_TIME_ID: Mapped[int] = mapped_column(ForeignKey("Hour.HOUR_ID"))
+    WEEKDAY_USER_TIME_ID: Mapped[int] = mapped_column(ForeignKey("Weekday.WEEKDAY_ID"))
+    USER_USER_TIME_ID: Mapped[int] = mapped_column(ForeignKey("User.USER_ID"))
+
+class UserCategory(Base):
+    USER_USER_CATEGORY_ID: Mapped[int] = mapped_column(ForeignKey("User.USER_ID"), primary_key=True)
+    CATEGORY_USER_CATEGORY_ID: Mapped[int] = mapped_column(ForeignKey("Category.CATEGORY_ID"), primary_key=True)
+
+class Event(Base):
+    EVENT_ID: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
+    EVENT_TIME: Mapped[datetime] = mapped_column(DATETIME)
+    EVENT_REGION: Mapped[int] = mapped_column(ForeignKey("Region.REGION_ID"))
+    EVENT_CATEGORY: Mapped[int] = mapped_column(ForeignKey("Category.CATEGORY_ID"))
+
+class UserEvent(Base):
+    USER_USER_EVENT_ID: Mapped[int] = mapped_column(ForeignKey("User.USER_ID"), primary_key=True)
+    EVENT_USER_EVENT_ID: Mapped[int] = mapped_column(ForeignKey("Event.EVENT_ID"), primary_key=True)
