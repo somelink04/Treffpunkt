@@ -5,6 +5,8 @@ ALLGEMEINES
 
 ---------------------------------------------------------------------------
 
+ENDPUNKTE
+
 Pfad:           /auth/login
 
 Methoden:       POST
