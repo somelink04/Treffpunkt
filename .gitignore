@@ -12,3 +12,5 @@ dataSources.local.xml
 misc.xml
 
 inspectionProfiles/
+
+__pycache__/
