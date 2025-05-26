@@ -1,0 +1,227 @@
+ALLGEMEINES
+
+- Sonntags werden die Events für die kommende Woche zum User gematched. Vielleicht bei Bedarf nochmal unter der Woche? (z.B. Mittwoch fürs Wochenende)
+- Schnittstellen sind sehr rudimentär definiert und sollten bei Bedarf genauer spezifiziert werden
+
+---------------------------------------------------------------------------
+
+ENDPUNKTE
+
+Pfad:           /auth/login
+
+Methoden:       POST
+
+Beschreibung:   Endpunkt für den Login des Clients beim Backend:
+
+Aufbau:
+{
+    "username": <username>
+    "password": <password hash SHA 2 256>
+}
+
+Antwort:
+{
+    "token": <token> // token sollte id, username und 
+}
+oder HTML Statuscode 401 (Unauthorized)
+
+---------------------------------------------------------------------------
+
+Pfad:           /auth/ident
+
+Methoden:       GET
+
+Beschreibung:   Endpunkt, um Umgang mit dem Access Token zu testen
+
+Antwort:
+{
+    "identity": <username>
+}
+
+oder Statuscode
+
+---------------------------------------------------------------------------
+
+Pfad:           /settings
+
+Methoden:       POST
+
+Beschreibung:   Endpunkt zum Bearbeiten der Nutzereinstellungen des aktuellen Nutzers, nicht zu verändernde Eigenschaften können weggelassen werden
+
+Aufbau:
+{
+    "times": [
+        {
+        "weekday: "<wochentag>", // nur Wochentage, die angegeben sind updaten
+        "hours": [ 1, 2, 3, 4, ... ]
+        },
+        {
+            ...
+        }
+    ],
+    "categories": [<id der jeweiligen Kategorie in DB>, 4, 7, 23, ...],
+    "user": {
+        "region": {
+            // müssen nicht beide spezifiziert werden, eins kann weggelassen werden
+            // falls beide spezifiziert sind, wird die id genutzt, unabhängig davon, ob die PLZ dazu passt!
+            "id": <region id>,
+            "zip": <zip> 
+    }
+}
+
+Antwort:
+-
+
+---------------------------------------------------------------------------
+
+Pfad:           /settings
+
+Methoden:       GET
+
+Beschreibung:   Endpunkt zum Abholen der Nutzereinstellungen des aktuellen Nutzers
+
+Antwort: wie bei /settings (POST), nur komplett, sowie komplette Nutzerinfo
+{
+    ...,
+    "user": {
+        "firstname": <firstname>,
+        "surname": <surname>,
+        "username": <username>,
+        "dayofbirth": <dayofbirth>,
+        "email": <email>, 
+        "gender": <gender>,
+        "region": <region> //anpassbar
+    }
+ }
+
+---------------------------------------------------------------------------
+
+Pfad:           /settings/categories
+
+Methoden:       GET
+
+Beschreibung:   Endpunkt zum Abrufen aller Kategorien
+ 
+Antwort:
+[
+    {
+        "id": <id>
+        "name": <name>
+        "description": <description>
+    },
+    {
+        ...
+    },
+    ...
+]
+
+---------------------------------------------------------------------------
+
+Pfad:           /settings/times
+
+Methoden:       GET
+
+Beschreibung:   Endpunkt zum Abrufen der Zeitinformationen (für Anpassung der Zeiten)
+
+Antwort:
+{
+    "weekdays": [
+        {
+
+            "id": <id>
+            "name": <name> eg. "Montag"
+        }, 
+        ...
+    ],
+    "hours": [ 0, 1, ..., 23 ]
+}
+
+---------------------------------------------------------------------------
+
+Pfad:           /settings/categories
+
+Methoden:       GET
+
+Beschreibung:   Endpunkt zum Abrufen aller möglichen Regionen
+
+/settings/regions
+[
+    {
+        "id": <id>
+        "zip": <zip>
+        "name": <name>
+    },
+    ...
+]
+
+---------------------------------------------------------------------------
+
+Pfad:           /events/suggestion
+
+Methoden:       GET
+
+Beschreibung:   Endpunkt zum Abrufen der aktuellen Terminvorschläge für den jeweiligen Nutzer
+
+Antwort:
+[
+    {
+        "id": <id>,
+        "name": <name>, // Category Name
+        "description": <description>, 
+        "location": <location>, // region
+        "date": <date>
+    },
+    ...
+]
+
+---------------------------------------------------------------------------
+
+Pfad:           /events/reply
+
+Methoden:       POST
+
+Beschreibung:   Endpunkt zum Zusagen oder Ablehnen aktueller Terminvorschläge
+
+Kommentare:
+    * Zusage / Absage mehrerer Events --> drei Zustände in DB: Warten auf Antwort (sollte wie Antwort behandelt werden), Zusage, Absage
+
+Aufbau:
+[
+    {
+        "id": <id>,
+        "accapted": <true | false>
+    },
+    ...
+]
+
+Antwort:
+-
+
+---------------------------------------------------------------------------
+
+Pfad:           /events/accepted
+
+Methoden:       POST
+
+Beschreibung:   Endpunkt zum Abrufen von Veranstaltungsdetails, zu der / denen man zugesagt hat
+
+Kommentare:
+    * nur Events in der kommenden Woche, zu denen zugesagt wurde (im Normalfall Liste mit einem Element)
+[
+    {
+        "id": <id>,
+        "name": <name>,
+        "description": <description>,
+        "location": <location>, // region oder genaue Adresse
+        "date": <date>,
+        "participants": [
+            {
+                "firstname": <firstname>,
+                "surname": <surname>,
+                "age": <age>
+            },
+            ...
+        ]
+    },
+    ...
+]
