@@ -117,7 +117,7 @@ Antwort:
 
 ---------------------------------------------------------------------------
 
-Pfad:           /settings/categories
+Pfad:           /settings/times
 
 Methoden:       GET
 
