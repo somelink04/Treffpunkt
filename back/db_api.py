@@ -124,9 +124,24 @@ def add_user_category (user_id, category_id):
     """
     with Session() as session:
         new_user_category = UserCategory()
-        new_user_category.CATEGORY_USER_CATEGORY_ID = category_id
         new_user_category.USER_USER_CATEGORY_ID = user_id
+        new_user_category.CATEGORY_USER_CATEGORY_ID = category_id
         session.add(new_user_category)
+        session.commit()
+
+def add_event (time, region, category):
+    """
+    adds an event to the database.
+    :param time: time of the event (datetime format)
+    :param region: region of the event
+    :param category: category of the event
+    """
+    with Session() as session:
+        new_event = Event()
+        new_event.EVENT_TIME = time
+        new_event.EVENT_REGION = region
+        new_event.EVENT_CATEGORY = category
+        session.add(new_event)
         session.commit()
 
 #Depends on the matching algorithm, has to be changed possibly
@@ -140,24 +155,29 @@ def add_user_event(user_id, event_id):
         new_user_event = UserEvent()
         new_user_event.EVENT_USER_EVENT_ID = event_id
         new_user_event.USER_USER_EVENT_ID = user_id
+        new_user_event.USER_EVENT_ZUSAGE = False
         session.add(new_user_event)
         session.commit()
 
-#--TODO:Nicht sicher ob das so funktioniert->TEST!
-def add_zusage(zusageflag, user_event_id):
+def add_confirm(user_event_id):
     """
-    Sets new confirmationflag in UserEvent Table
-    :param zusageflag: Flag if user confirmed to Event or not
+    Sets UserEvent to confirmed
     :param user_event_id: ID of the Event
     """
     with Session() as session:
-        user_event = session.query(UserEvent).filter_by(USER_EVENT_ID=user_event_id).first()
-        if user_event:
-            user_event.USER_EVENT_ZUSAGE = zusageflag
-            session.commit()
-        else:
-            print ("No such UserEvent in DB.")
+        user_event = session.query(UserEvent).filter_by(EVENT_USER_EVENT_ID=user_event_id).first()
+        user_event.USER_EVENT_ZUSAGE = True
+        session.commit()
 
+def revoke_confirm(user_event_id):
+    """
+    Sets UserEvent to unconfirmed
+    :param user_event_id: ID of the Event
+    """
+    with Session() as session:
+        user_event = session.query(UserEvent).filter_by(EVENT_USER_EVENT_ID=user_event_id).first()
+        user_event.USER_EVENT_ZUSAGE = False
+        session.commit()
 
 #Get Events
 def get_confirmed_user_event(user_id):
@@ -167,19 +187,32 @@ def get_confirmed_user_event(user_id):
     :return: Events the user confirmed to.
     """
     with Session() as session:
-        user_events = session.query(UserEvent).filter(USER_USER_EVENT_ID = user_id).all()
-        for i in range (len(user_events)):
-            if not user_events[i].USER_EVENT_ZUSAGE:
-                user_events.pop(i)
-        return user_events
+        user_events = session.query(UserEvent).filter_by(USER_USER_EVENT_ID = user_id).all()
+        count = 0
+        if len(user_events) > 0:
+            for i in range (len(user_events)):
+                if not user_events[count].USER_EVENT_ZUSAGE:
+                    user_events.pop(i)
+                else:
+                    count += 1
+            return user_events
+        else:
+            return []
 
 def get_unconfirmed_user_event(user_id):
+
     with Session() as session:
-        user_events = session.query(UserEvent).filter(USER_USER_EVENT_ID = user_id).all()
-        for i in range (len(user_events)):
-            if user_events[i].USER_EVENT_ZUSAGE:
-                user_events.pop(i)
-        return user_events
+        user_events = session.query(UserEvent).filter_by(USER_USER_EVENT_ID = user_id).all()
+        count = 0
+        if len(user_events) > 0:
+            for i in range (len(user_events)):
+                if user_events[count].USER_EVENT_ZUSAGE:
+                    user_events.pop(i)
+                else:
+                    count += 1
+            return user_events
+        else:
+            return []
 
 
 def get_all_user_events(user_id):
@@ -189,7 +222,7 @@ def get_all_user_events(user_id):
     :return: All Events concerning this user
     """
     with Session() as session:
-        user_events = session.query(UserEvent).filter(USER_USER_EVENT_ID = user_id).all()
+        user_events = session.query(UserEvent).filter_by(USER_USER_EVENT_ID = user_id).all()
         return user_events
 
 #Get User Settings
@@ -200,10 +233,21 @@ def get_user_settings(user_id):
     :return: Region of the User, Cathegories of the User, Times of the User (Weekday-Hour pair)
     """
     with Session() as session:
-        user_region = session.query(User).filter_by(USER_ID=user_id).first()
-        user_category = session.query(UserCategory).filter_by(USER_USER_CATEGORY_ID=user_id).first()
-        user_time = session.query(UserTime).filter_by(USER_USER_TIME_ID=user_id).first()
+        user_region = session.query(User).with_entities(User.USER_REGION).filter_by(USER_ID=user_id).first()
+        user_category = session.query(UserCategory).filter_by(USER_USER_CATEGORY_ID=user_id).all()
+        user_time = session.query(UserTime).filter_by(USER_USER_TIME_ID=user_id).all()
         return user_region, user_category, user_time
 
 
-#TODO- Testen, evtl auch mal Testdaten schreiben für die unbefüllten Datenbank
+'''
+für Test
+def get_user_cat(user_id):
+    with Session() as session:
+        user_category = session.query(UserCategory).filter_by(USER_USER_CATEGORY_ID=user_id).all()
+        return user_category
+
+def get_user_time(user_id):
+    with Session() as session:
+        user_time = session.query(UserTime).filter_by(USER_USER_TIME_ID=user_id).all()
+        return user_time
+'''
