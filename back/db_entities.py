@@ -40,7 +40,6 @@ class Category(Base):
     CATEGORY_ACCEPTION_RATIO: Mapped[float] = mapped_column(Float)
     CATEGORY_MIN: Mapped[Optional[int]]
 
-
 class User(Base):
     __tablename__ = "USER"
     USER_ID: Mapped[int] = mapped_column(primary_key=True)

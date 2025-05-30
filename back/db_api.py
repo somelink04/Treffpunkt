@@ -72,16 +72,20 @@ def get_user_auth(user_name):
             print ("No User with this Username in DB.")
             return None
 
-#--TODO: Brauchen wir hier noch was, was USER_GENDER, USER_REGION auflöst? Weil so bekommen wir vorraussichtlich 1, 39043 zurück
 def get_user (user_id):
     """
     :param user_id: ID of the searched User
     :return: The user_name of the searched user (User object) without password.
     """
+
     with Session() as session:
-        user = session.query(User).with_entities(User.USER_ID, User.USER_FIRSTNAME, User.USER_SURNAME,
-                                                 User.USER_BIRTHDATE, User.USER_USERNAME, User.USER_EMAIL,
-                                                 User.USER_GENDER, User.USER_REGION).filter_by(USER_ID=user_id).first()
+        #user = session.query(User).with_entities(User.USER_ID, User.USER_FIRSTNAME, User.USER_SURNAME,
+        #                                         User.USER_BIRTHDATE, User.USER_USERNAME, User.USER_EMAIL,
+        #                                         User.USER_GENDER, User.USER_REGION).filter_by(USER_ID = user_id).first()
+
+        user = session.query(User.USER_ID, User.USER_FIRSTNAME, User.USER_SURNAME, User.USER_BIRTHDATE, User.USER_USERNAME, User.USER_EMAIL,
+                            User.USER_GENDER, User.USER_REGION, Gender.GENDER_ID, Gender.GENDER_NAME, Region.REGION_ID, Region.REGION_NAME,
+                             Region.REGION_ZIP).outerjoin(Gender, User.USER_GENDER == Gender.GENDER_ID).outerjoin (Region, User.USER_REGION == Region.REGION_ID).filter(User.USER_ID == user_id).first()
         if user:
             return user
         else:
@@ -93,9 +97,9 @@ def get_all_users ():
     :return: list of all users without password.
     """
     with Session() as session:
-        user = session.query(User).with_entities(User.USER_ID, User.USER_FIRSTNAME, User.USER_SURNAME,
-                                                 User.USER_BIRTHDATE, User.USER_USERNAME, User.USER_EMAIL,
-                                                 User.USER_GENDER, User.USER_REGION).all()
+        user = session.query(User.USER_ID, User.USER_FIRSTNAME, User.USER_SURNAME, User.USER_BIRTHDATE, User.USER_USERNAME, User.USER_EMAIL,
+                             User.USER_GENDER, User.USER_REGION, Gender.GENDER_ID, Gender.GENDER_NAME, Region.REGION_ID,Region.REGION_NAME,
+                             Region.REGION_ZIP).outerjoin(Gender, User.USER_GENDER == Gender.GENDER_ID).outerjoin(Region, User.USER_REGION == Region.REGION_ID).all()
         return user
 
 
@@ -116,6 +120,27 @@ def add_user_time (user_id, user_hour, user_weekday):
         session.add(new_user_time)
         session.commit()
 
+def get_region_id_from_zip(zip_code):
+    """
+    returns Region ID from zip code
+    :param zip_code: Zip Code
+    :return: Region ID
+    """
+    with Session() as session:
+        region_id = session.query(Region).filter_by(REGION_ZIP=zip_code).first()
+    return region_id.REGION_ID
+
+def add_user_region (user_id, zip):
+    """
+    Updates Region of the user
+    :param user_id:  ID of the User
+    :param region_id: ID of the new Region
+    """
+    with Session() as session:
+        user_region = session.query(User).filter_by(USER_ID=user_id).first()
+        user_region.USER_REGION = get_region_id_from_zip(zip)
+        session.commit()
+
 def add_user_category (user_id, category_id):
     """
     Sets new UserCategory in UserCategory Table
@@ -129,7 +154,7 @@ def add_user_category (user_id, category_id):
         session.add(new_user_category)
         session.commit()
 
-def add_event (time, region, category):
+def add_event (time, region_id, category_id):
     """
     adds an event to the database.
     :param time: time of the event (datetime format)
@@ -139,8 +164,8 @@ def add_event (time, region, category):
     with Session() as session:
         new_event = Event()
         new_event.EVENT_TIME = time
-        new_event.EVENT_REGION = region
-        new_event.EVENT_CATEGORY = category
+        new_event.EVENT_REGION = region_id
+        new_event.EVENT_CATEGORY = category_id
         session.add(new_event)
         session.commit()
 
@@ -187,7 +212,10 @@ def get_confirmed_user_event(user_id):
     :return: Events the user confirmed to.
     """
     with Session() as session:
-        user_events = session.query(UserEvent).filter_by(USER_USER_EVENT_ID = user_id).all()
+        events = []
+        user_events = session.query(UserEvent.USER_USER_EVENT_ID, UserEvent.EVENT_USER_EVENT_ID,
+                                    UserEvent.USER_EVENT_ZUSAGE, Event.EVENT_ID,
+                                    Event.EVENT_TIME, Event.EVENT_REGION, Event.EVENT_CATEGORY).outerjoin(Event, UserEvent.EVENT_USER_EVENT_ID == Event.EVENT_ID).filter_by(USER_USER_EVENT_ID = user_id).all()
         count = 0
         if len(user_events) > 0:
             for i in range (len(user_events)):
@@ -195,14 +223,19 @@ def get_confirmed_user_event(user_id):
                     user_events.pop(i)
                 else:
                     count += 1
-            return user_events
+            subquery_event(events, session, user_events)
+            return events
         else:
             return []
+
 
 def get_unconfirmed_user_event(user_id):
 
     with Session() as session:
-        user_events = session.query(UserEvent).filter_by(USER_USER_EVENT_ID = user_id).all()
+        events = []
+        user_events = session.query(UserEvent.USER_USER_EVENT_ID, UserEvent.EVENT_USER_EVENT_ID,
+                                    UserEvent.USER_EVENT_ZUSAGE, Event.EVENT_ID,
+                                    Event.EVENT_TIME, Event.EVENT_REGION, Event.EVENT_CATEGORY).outerjoin(Event, UserEvent.EVENT_USER_EVENT_ID == Event.EVENT_ID).filter_by(USER_USER_EVENT_ID = user_id).all()
         count = 0
         if len(user_events) > 0:
             for i in range (len(user_events)):
@@ -210,9 +243,11 @@ def get_unconfirmed_user_event(user_id):
                     user_events.pop(i)
                 else:
                     count += 1
-            return user_events
+            subquery_event(events, session, user_events)
+            return events
         else:
             return []
+
 
 
 def get_all_user_events(user_id):
@@ -222,9 +257,40 @@ def get_all_user_events(user_id):
     :return: All Events concerning this user
     """
     with Session() as session:
-        user_events = session.query(UserEvent).filter_by(USER_USER_EVENT_ID = user_id).all()
-        return user_events
+        events = []
+        user_events = session.query(UserEvent.USER_USER_EVENT_ID, UserEvent.EVENT_USER_EVENT_ID,
+                                        UserEvent.USER_EVENT_ZUSAGE, Event.EVENT_ID,
+                                        Event.EVENT_TIME, Event.EVENT_REGION, Event.EVENT_CATEGORY).outerjoin(Event, UserEvent.EVENT_USER_EVENT_ID == Event.EVENT_ID).filter_by(USER_USER_EVENT_ID = user_id).all()
 
+        if len(user_events) > 0:
+            subquery_event(events, session, user_events)
+            return events
+        else:
+            return []
+
+
+def subquery_event(events, session, user_events):
+    for user_event in user_events:
+        event_id = user_event.EVENT_ID
+        event = session.query(Event.EVENT_ID, Event.EVENT_TIME, Event.EVENT_REGION, Event.EVENT_CATEGORY,
+                              Category.CATEGORY_ID, Category.CATEGORY_NAME, Category.CATEGORY_DESCRIPTION,
+                              Category.CATEGORY_MIN, Category.CATEGORY_ACCEPTION_RATIO, Region.REGION_ID,
+                              Region.REGION_NAME, Region.REGION_ZIP).outerjoin(Category,
+                                                                               Event.EVENT_CATEGORY == Category.CATEGORY_ID).outerjoin(
+            Region, Event.EVENT_REGION == Region.REGION_ID).filter_by(EVENT_ID=event_id).first()
+        events.append(event)
+
+
+'''
+Vorraussichtlich überflüssig
+def get_event_by_id (event_id):
+    with Session() as session:
+        event = session.query( Event.EVENT_ID, Event.EVENT_TIME, Event.EVENT_REGION, Event.EVENT_CATEGORY,
+                               Category.CATEGORY_ID, Category.CATEGORY_NAME, Category.CATEGORY_DESCRIPTION,
+                               Category.CATEGORY_MIN, Category.CATEGORY_ACCEPTION_RATIO, Region.REGION_ID,
+                               Region.REGION_NAME, Region.REGION_ZIP).outerjoin(Category, Event.EVENT_CATEGORY == Category.CATEGORY_ID).outerjoin(Region, Event.EVENT_REGION == Region.REGION_ID).filter_by(EVENT_ID = event_id).first()
+    return event
+'''
 #Get User Settings
 def get_user_settings(user_id):
     """
@@ -233,14 +299,16 @@ def get_user_settings(user_id):
     :return: Region of the User, Cathegories of the User, Times of the User (Weekday-Hour pair)
     """
     with Session() as session:
-        user_region = session.query(User).with_entities(User.USER_REGION).filter_by(USER_ID=user_id).first()
-        user_category = session.query(UserCategory).filter_by(USER_USER_CATEGORY_ID=user_id).all()
-        user_time = session.query(UserTime).filter_by(USER_USER_TIME_ID=user_id).all()
+        user_region = session.query(User.USER_ID, User.USER_REGION, Region.REGION_ID,Region.REGION_NAME,Region.REGION_ZIP).outerjoin(Region, User.USER_REGION == Region.REGION_ID).filter_by(USER_ID = user_id).all()
+        user_category = session.query(UserCategory.USER_USER_CATEGORY_ID, UserCategory.CATEGORY_USER_CATEGORY_ID,
+                                      Category.CATEGORY_ID, Category.CATEGORY_NAME, Category.CATEGORY_DESCRIPTION,
+                                      Category.CATEGORY_MIN, Category.CATEGORY_ACCEPTION_RATIO).outerjoin (Category, UserCategory.USER_USER_CATEGORY_ID == Category.CATEGORY_ID).filter_by(USER_USER_CATEGORY_ID=user_id).all()
+        user_time = session.query(UserTime.USER_TIME_ID, UserTime.HOUR_USER_TIME_ID, UserTime.WEEKDAY_USER_TIME_ID, UserTime.USER_USER_TIME_ID,
+                                  Hour.HOUR_ID, Hour.HOUR_NAME, Weekday.WEEKDAY_ID, Weekday.WEEKDAY_NAME).outerjoin(Hour, User.HOUR_USER_TIME_ID == Hour.HOUR_ID). outerjoin(Weekday, User.WEEKDAY_USER_TIME_ID == Weekday.WEEKDAY_ID).filter_by(USER_USER_TIME_ID=user_id).all()
         return user_region, user_category, user_time
 
-
 '''
-für Test
+Für Test
 def get_user_cat(user_id):
     with Session() as session:
         user_category = session.query(UserCategory).filter_by(USER_USER_CATEGORY_ID=user_id).all()
@@ -249,5 +317,54 @@ def get_user_cat(user_id):
 def get_user_time(user_id):
     with Session() as session:
         user_time = session.query(UserTime).filter_by(USER_USER_TIME_ID=user_id).all()
-        return user_time
-'''
+        return user_time'''
+
+
+#Getting Dict -> jsonify sollte damit besser klappen
+def user_to_dict (user_object):
+    """
+    Transform a user object into a dictionary.
+    :param user_object: User object to be transformed
+    :return: transformed dictionary
+    """
+    return {
+        "firstname": user_object.USER_FIRSTNAME,
+        "surname": user_object.USER_SURNAME,
+        "birthdate": user_object.USER_BIRTHDATE,
+        "username": user_object.USER_USERNAME,
+        "email": user_object.USER_EMAIL,
+        "gender": user_object.GENDER_NAME,
+        "zip:" : user_object.REGION_ZIP,
+        "region": user_object.REGION_NAME,
+        }
+
+def region_to_dic(region_object):
+    return {
+        "id" : region_object.REGION_ID,
+        "zip": region_object.REGION_ZIP,
+        "name": region_object.REGION_NAME,
+    }
+
+def category_to_dict(category_object):
+    return {
+        "id": category_object.CATEGORY_ID,
+        "name": category_object.CATEGORY_NAME,
+        "description": category_object.CATEGORY_DESCRIPTION,
+    }
+
+def event_to_dict(event_object):
+    return {
+        "name": event_object.CATEGORY_NAME,
+        "description": event_object.CATEGORY_DESCRIPTION,
+        "time": event_object.EVENT_TIME,
+        "eventzip": event_object.REGION_ZIP,
+        "eventregion": event_object.REGION_NAME,
+    }
+
+def time_to_dict(time_object):
+    return {
+        "hour_id": time_object.HOUR_ID,
+        "hour": time_object.HOUR,
+        "weekday_ID": time_object.WEEKDAY_ID,
+        "weekday": time_object.WEEKDAY,
+    }
