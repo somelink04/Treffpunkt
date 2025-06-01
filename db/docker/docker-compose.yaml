@@ -1,0 +1,14 @@
+version: "3.7"
+services:
+    mariadb:
+        build:
+            context: .
+            dockerfile: dockerfile
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: b55tQKAc0z2K0hluWSo7Zxq2cMs9pTgx
+            MYSQL_DATABASE: TREFFPUNKT_DB
+            MYSQL_USER: treffpunkt
+            MYSQL_PASSWORD: b55tQKAc0z2K0hluWSo7Zxq2cMs9pTgx
+        ports:
+            - 3306:3306

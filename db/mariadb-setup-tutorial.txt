@@ -1,3 +1,10 @@
+Mit Docker:
+
+- installiere docker compose
+- goto the-eye-of-sauron/db/docker
+- "docker compose up"
+
+
 Vorraussetzung ist, dass der mariadb server erstmal im selben netzwerk hängt (z.B. bridged connection bei virtual box)
 
 Meine Empfehlung: (kleine) Virtuelle Machine mit debian aufsetzten

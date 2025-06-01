@@ -1,5 +1,5 @@
 from flask import Flask
-from . import auth
+import auth
 
 def create_app():
     app = Flask(__name__,

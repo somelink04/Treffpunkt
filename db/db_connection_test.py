@@ -7,7 +7,7 @@ try:
     conn = mariadb.connect(
         user="treffpunkt",
         password="b55tQKAc0z2K0hluWSo7Zxq2cMs9pTgx",
-        host="ip.of.mariadb.server", # zb. 127.0.0.1 oder 192.168.0.57
+        host="127.0.0.1", # zb. 127.0.0.1 oder 192.168.0.57
         port=3306,
         database="TREFFPUNKT_DB"
     )
@@ -17,3 +17,10 @@ except mariadb.Error as e:
 
 # Get Cursor
 cur = conn.cursor()
+
+cur.execute(
+    "SELECT CATEGORY_ID, CATEGORY_NAME, CATEGORY_DESCRIPTION FROM CATEGORY")
+
+# Print Result-set
+for (CATEGORY_ID, CATEGORY_NAME, CATEGORY_DESCRIPTION) in cur:
+    print(f"Id: {CATEGORY_ID}, Name: {CATEGORY_NAME}, Description: {CATEGORY_DESCRIPTION}")
