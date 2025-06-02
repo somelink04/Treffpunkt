@@ -1,2 +1,11 @@
+greenlet==3.2.2
 mariadb==1.1.12
+numpy==2.2.6
 packaging==25.0
+PyMySQL==1.1.1
+python-dateutil==2.9.0.post0
+pytz==2025.2
+six==1.17.0
+SQLAlchemy==2.0.41
+typing_extensions==4.13.2
+tzdata==2025.2

@@ -1,10 +1,13 @@
 from sqlalchemy import create_engine, MetaData, Table, select, insert, delete
 
-engine = create_engine("mysql+pymysql://root:Klodeckel@localhost/Treffpunkt_DB")
+engine = create_engine("mysql+pymysql://treffpunkt:b55tQKAc0z2K0hluWSo7Zxq2cMs9pTgx@localhost/TREFFPUNKT_DB")
 
 metadata = MetaData()
 metadata.reflect(bind = engine)
-users = metadata.tables["user"]
+
+print(metadata.tables["REGION"].columns)
+
+exit()
 
 def getDataFromTable(table_name, attributes = None):
     table = metadata.tables[str(table_name)]

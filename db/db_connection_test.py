@@ -24,3 +24,10 @@ cur.execute(
 # Print Result-set
 for (CATEGORY_ID, CATEGORY_NAME, CATEGORY_DESCRIPTION) in cur:
     print(f"Id: {CATEGORY_ID}, Name: {CATEGORY_NAME}, Description: {CATEGORY_DESCRIPTION}")
+
+cur.execute(
+    "SELECT REGION_NAME, REGION_ZIP FROM REGION WHERE REGION_DISTRICT = 'Passau'")
+
+# Print Result-set
+for (REGION_NAME, REGION_ZIP) in cur:
+    print(f"Name: {REGION_NAME}, Plz: {REGION_ZIP}")
