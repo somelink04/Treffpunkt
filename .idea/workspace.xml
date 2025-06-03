@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ea49e3f3-5935-4b53-b07e-aaa2431925fa" name="Changes" comment="Implent and styled &quot;Login Front&quot; page, added some missing files" />
+    <list default="true" id="ea49e3f3-5935-4b53-b07e-aaa2431925fa" name="Changes" comment="Implent and styled &quot;Login Front&quot; page, added some missing files">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -37,17 +39,19 @@
     "git-widget-placeholder": "feat/#26-Login-Dialog/JMe",
     "ignore.virus.scanning.warn.message": "true",
     "junie.onboarding.icon.badge.shown": "true",
-    "last_opened_file_path": "C:/Users/jacob/WebstormProjects/the-eye-of-sauron/front",
+    "last_opened_file_path": "C:/Users/jacob/WebstormProjects/the-eye-of-sauron/front/public",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "npm.npm start.executor": "Run",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\jacob\WebstormProjects\the-eye-of-sauron\front\public" />
       <recent name="C:\Users\jacob\WebstormProjects\the-eye-of-sauron\front" />
       <recent name="C:\Users\jacob\WebstormProjects\the-eye-of-sauron\front\style" />
     </key>
@@ -56,10 +60,21 @@
       <recent name="C:\Users\jacob\WebstormProjects\the-eye-of-sauron\front\components" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="npm.npm start">
     <configuration name="index.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/the-eye-of-sauron/front/index.html" useBuiltInWebServerPort="true">
       <method v="2" />
     </configuration>
+    <configuration name="npm start" type="js.build_tools.npm">
+      <package-json value="$PROJECT_DIR$/front/package.json" />
+      <command value="start" />
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="JavaScript Debug.index.html" />
+      <item itemvalue="npm.npm start" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="JavaScript Debug.index.html" />
@@ -88,7 +103,7 @@
       <workItem from="1748201009512" duration="1865000" />
       <workItem from="1748234335234" duration="611000" />
       <workItem from="1748279176281" duration="2037000" />
-      <workItem from="1748948180602" duration="948000" />
+      <workItem from="1748948180602" duration="1283000" />
     </task>
     <task id="LOCAL-00001" summary="Implent and styled &quot;Login Front&quot; page">
       <option name="closed" value="true" />
@@ -106,7 +121,23 @@
       <option name="project" value="LOCAL" />
       <updated>1748948881116</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Implent and styled &quot;Login Front&quot; page, added some missing files">
+      <option name="closed" value="true" />
+      <created>1748949214682</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1748949214682</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Implent and styled &quot;Login Front&quot; page, added some missing files">
+      <option name="closed" value="true" />
+      <created>1748949413064</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1748949413064</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
