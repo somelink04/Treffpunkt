@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ea49e3f3-5935-4b53-b07e-aaa2431925fa" name="Changes" comment="Implent and styled &quot;Login Front&quot; page, added some missing files">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="ea49e3f3-5935-4b53-b07e-aaa2431925fa" name="Changes" comment="Implent and styled &quot;Login Front&quot; page, added some missing files" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -39,7 +37,7 @@
     "git-widget-placeholder": "feat/#26-Login-Dialog/JMe",
     "ignore.virus.scanning.warn.message": "true",
     "junie.onboarding.icon.badge.shown": "true",
-    "last_opened_file_path": "C:/Users/jacob/WebstormProjects/the-eye-of-sauron/front/public",
+    "last_opened_file_path": "C:/Users/jacob/WebstormProjects/the-eye-of-sauron/front",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -51,11 +49,12 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\jacob\WebstormProjects\the-eye-of-sauron\front\public" />
       <recent name="C:\Users\jacob\WebstormProjects\the-eye-of-sauron\front" />
+      <recent name="C:\Users\jacob\WebstormProjects\the-eye-of-sauron\front\public" />
       <recent name="C:\Users\jacob\WebstormProjects\the-eye-of-sauron\front\style" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\jacob\WebstormProjects\the-eye-of-sauron\front" />
       <recent name="C:\Users\jacob\WebstormProjects\the-eye-of-sauron\front\src" />
       <recent name="C:\Users\jacob\WebstormProjects\the-eye-of-sauron\front\components" />
     </key>
@@ -103,7 +102,7 @@
       <workItem from="1748201009512" duration="1865000" />
       <workItem from="1748234335234" duration="611000" />
       <workItem from="1748279176281" duration="2037000" />
-      <workItem from="1748948180602" duration="1283000" />
+      <workItem from="1748948180602" duration="1603000" />
     </task>
     <task id="LOCAL-00001" summary="Implent and styled &quot;Login Front&quot; page">
       <option name="closed" value="true" />
@@ -137,7 +136,15 @@
       <option name="project" value="LOCAL" />
       <updated>1748949413064</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Implent and styled &quot;Login Front&quot; page, added some missing files">
+      <option name="closed" value="true" />
+      <created>1748949604210</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1748949604210</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

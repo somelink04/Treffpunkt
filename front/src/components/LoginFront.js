@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../../../../treffpunkt/src/style/LoginFront.css';
+import '../style/LoginFront.css';
 
 //Funktion LoginForm definieren
 export default function LoginForm() {
