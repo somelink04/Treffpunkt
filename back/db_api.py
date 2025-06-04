@@ -1,7 +1,4 @@
 from db_entities import *
-from sqlalchemy import text
-
-from db_entities import UserTime
 
 #Create Session
 engine = create_engine("mysql+pymysql://treffpunkt:b55tQKAc0z2K0hluWSo7Zxq2cMs9pTgx@localhost/TREFFPUNKT_DB")
@@ -338,7 +335,7 @@ def user_to_dict (user_object):
         "region": user_object.REGION_NAME,
         }
 
-def region_to_dic(region_object):
+def region_to_dict(region_object):
     return {
         "id" : region_object.REGION_ID,
         "zip": region_object.REGION_ZIP,

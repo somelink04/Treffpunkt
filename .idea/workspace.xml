@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="ea49e3f3-5935-4b53-b07e-aaa2431925fa" name="Changes" comment="Implent and styled &quot;Login Front&quot; page, added some missing files" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="DEPENDENCY_CHECKER_PROBLEMS_TAB" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1
+}</component>
+  <component name="ProjectId" id="2wxq28AfqT1VtbwMwlpt5MvfM7i" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "JavaScript Debug.index.html.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "feat/#26-Login-Dialog/JMe",
+    "ignore.virus.scanning.warn.message": "true",
+    "junie.onboarding.icon.badge.shown": "true",
+    "last_opened_file_path": "C:/Users/jacob/WebstormProjects/the-eye-of-sauron/front",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "npm.npm start.executor": "Run",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\jacob\WebstormProjects\the-eye-of-sauron\front" />
+      <recent name="C:\Users\jacob\WebstormProjects\the-eye-of-sauron\front\public" />
+      <recent name="C:\Users\jacob\WebstormProjects\the-eye-of-sauron\front\style" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\jacob\WebstormProjects\the-eye-of-sauron\front" />
+      <recent name="C:\Users\jacob\WebstormProjects\the-eye-of-sauron\front\src" />
+      <recent name="C:\Users\jacob\WebstormProjects\the-eye-of-sauron\front\components" />
+    </key>
+  </component>
+  <component name="RunManager" selected="npm.npm start">
+    <configuration name="index.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/the-eye-of-sauron/front/index.html" useBuiltInWebServerPort="true">
+      <method v="2" />
+    </configuration>
+    <configuration name="npm start" type="js.build_tools.npm">
+      <package-json value="$PROJECT_DIR$/front/package.json" />
+      <command value="start" />
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="JavaScript Debug.index.html" />
+      <item itemvalue="npm.npm start" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JavaScript Debug.index.html" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-6a121458b545-JavaScript-WS-251.25410.117" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="ea49e3f3-5935-4b53-b07e-aaa2431925fa" name="Changes" comment="" />
+      <created>1746993363578</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1746993363578</updated>
+      <workItem from="1746993365792" duration="1612000" />
+      <workItem from="1747064009837" duration="756000" />
+      <workItem from="1747065338376" duration="6032000" />
+      <workItem from="1747247728197" duration="536000" />
+      <workItem from="1747850435339" duration="1364000" />
+      <workItem from="1748201009512" duration="1865000" />
+      <workItem from="1748234335234" duration="611000" />
+      <workItem from="1748279176281" duration="2037000" />
+      <workItem from="1748948180602" duration="1603000" />
+    </task>
+    <task id="LOCAL-00001" summary="Implent and styled &quot;Login Front&quot; page">
+      <option name="closed" value="true" />
+      <created>1748279818020</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1748279818020</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Implent and styled &quot;Login Front&quot; page, added some missing files">
+      <option name="closed" value="true" />
+      <created>1748948881116</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1748948881116</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Implent and styled &quot;Login Front&quot; page, added some missing files">
+      <option name="closed" value="true" />
+      <created>1748949214682</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1748949214682</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Implent and styled &quot;Login Front&quot; page, added some missing files">
+      <option name="closed" value="true" />
+      <created>1748949413064</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1748949413064</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Implent and styled &quot;Login Front&quot; page, added some missing files">
+      <option name="closed" value="true" />
+      <created>1748949604210</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1748949604210</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Implent and styled &quot;Login Front&quot; page" />
+    <MESSAGE value="Implent and styled &quot;Login Front&quot; page, added some missing files" />
+    <option name="LAST_COMMIT_MESSAGE" value="Implent and styled &quot;Login Front&quot; page, added some missing files" />
+  </component>
+</project>
