@@ -3,8 +3,8 @@ import auth
 
 def create_app():
     app = Flask(__name__,
-                static_url_path='/static',
-                static_folder='../front')
+                static_url_path='/',
+                static_folder= '../front/build')
 
     @app.route(rule='/', defaults={'p': ''})
     @app.route(rule="/<path:p>", methods=["GET"])

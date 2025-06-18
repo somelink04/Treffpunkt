@@ -4,11 +4,36 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ea49e3f3-5935-4b53-b07e-aaa2431925fa" name="Changes" comment="Implent and styled &quot;Login Front&quot; page, added some missing files" />
+    <list default="true" id="ea49e3f3-5935-4b53-b07e-aaa2431925fa" name="Changes" comment="index.js: &#10;- Pfad zur Logo.png angepasst&#10;&#10;LoginFront.js:&#10;  - JSX überarbeitet und responsive gestaltet&#10;  - Funktionen `hashPassword()` und `LoginForm()` hinzugefügt&#10;&#10;Home.js:&#10;  - Neue Test-Seite als Landing Page nach Login zur Prüfung des Routings erstellt&#10;&#10;LoginFront.css:&#10;  - Großteils durch Bootstrap 5 Klassen ersetzt&#10;  - Inline-Styles nur bei Bedarf verwendet&#10;  - Rücksprache mit dem Frontend-Team zur Lesbarkeit und Handhabung erforderlich">
+      <change afterPath="$PROJECT_DIR$/front/public/Logo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/front/src/TestLandingPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/back/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/front/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/front/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/public/favicon.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/front/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/public/logo192.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/public/logo512.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/public/manifest.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/public/robots.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/src/App.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/src/components/LoginFront.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/LoginFront.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/src/index.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/src/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/src/style/LoginFront.css" beforeDir="false" afterPath="$PROJECT_DIR$/front/src/style/LoginFront.css" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -18,6 +43,18 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "Guvidas"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/somelink04/Treffpunkt.git",
+    "accountId": "2b687a71-fcee-4109-b41f-7ddf768c9b2c"
+  }
+}]]></component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="DEPENDENCY_CHECKER_PROBLEMS_TAB" />
   </component>
@@ -34,10 +71,10 @@
     "JavaScript Debug.index.html.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "feat/#26-Login-Dialog/JMe",
+    "git-widget-placeholder": "feat/#26-Login-Dialoge/DD",
     "ignore.virus.scanning.warn.message": "true",
     "junie.onboarding.icon.badge.shown": "true",
-    "last_opened_file_path": "C:/Users/jacob/WebstormProjects/the-eye-of-sauron/front",
+    "last_opened_file_path": "C:/Users/david/WebstormProjects/Treffpunkt/front/src/style",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -49,11 +86,15 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\david\WebstormProjects\Treffpunkt\front\src\style" />
+      <recent name="C:\Users\david\WebstormProjects\Treffpunkt\front\public" />
       <recent name="C:\Users\jacob\WebstormProjects\the-eye-of-sauron\front" />
       <recent name="C:\Users\jacob\WebstormProjects\the-eye-of-sauron\front\public" />
       <recent name="C:\Users\jacob\WebstormProjects\the-eye-of-sauron\front\style" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\david\WebstormProjects\Treffpunkt\front\src" />
+      <recent name="C:\Users\david\WebstormProjects\Treffpunkt\front\src\style" />
       <recent name="C:\Users\jacob\WebstormProjects\the-eye-of-sauron\front" />
       <recent name="C:\Users\jacob\WebstormProjects\the-eye-of-sauron\front\src" />
       <recent name="C:\Users\jacob\WebstormProjects\the-eye-of-sauron\front\components" />
@@ -103,6 +144,7 @@
       <workItem from="1748234335234" duration="611000" />
       <workItem from="1748279176281" duration="2037000" />
       <workItem from="1748948180602" duration="1603000" />
+      <workItem from="1750250621239" duration="3114000" />
     </task>
     <task id="LOCAL-00001" summary="Implent and styled &quot;Login Front&quot; page">
       <option name="closed" value="true" />
