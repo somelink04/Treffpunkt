@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify, abort
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
-from db_api import get_user_auth, get_all_users
+from .db_api import get_user_auth, get_all_users
 import json
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
