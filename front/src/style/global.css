@@ -1,0 +1,12 @@
+.bg-blue {
+    background: #546FF1;
+}
+
+.btn-orange {
+    color: #fff;
+    background-color: #FFB347;
+}
+.btn-orange:hover {
+    color: #fff;
+    background-color: #E6A136;
+}
