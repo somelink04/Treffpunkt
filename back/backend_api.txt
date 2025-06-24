@@ -201,7 +201,7 @@ Antwort:
 
 Pfad:           /events/accepted
 
-Methoden:       POST
+Methoden:       GET
 
 Beschreibung:   Endpunkt zum Abrufen von Veranstaltungsdetails, zu der / denen man zugesagt hat
 
