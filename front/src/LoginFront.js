@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import  { useNavigate } from 'react-router-dom';
-import "./style/LoginFront.css";
+import "./style/global.css";
 
 export default function LoginForm() {
     const [username, setUsername] = useState("");
@@ -75,7 +75,7 @@ export default function LoginForm() {
                     borderRadius: "23px",
                     maxWidth: "340px"
                 }}>
-                <form onSubmit={handleLogin} className="d-grid gap-3">
+                <form onSubmit={handleLogin} className="d-grid gap-3 needs-validation" noValidate>
                     <input
                         className="form-control"
                         type="text"
