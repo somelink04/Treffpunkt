@@ -1,5 +1,5 @@
 from flask import Flask
-from . import auth
+from . import auth, events, settings
 
 def create_app():
     app = Flask(__name__,
@@ -13,6 +13,8 @@ def create_app():
 
     auth.init_app(app)
     app.register_blueprint(auth.bp)
+    app.register_blueprint(events.bp)
+    app.register_blueprint(settings.bp)
 
     return app
 
