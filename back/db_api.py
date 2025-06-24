@@ -1,4 +1,4 @@
-from db_entities import *
+from .db_entities import *
 
 #Create Session
 engine = create_engine("mysql+pymysql://treffpunkt:b55tQKAc0z2K0hluWSo7Zxq2cMs9pTgx@localhost/TREFFPUNKT_DB")
