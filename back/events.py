@@ -29,7 +29,6 @@ def get_suggestions():
 
 
 
-#Post testen? Bekomm hier einen network error
 @bp.route('/reply', methods=['POST'])
 @jwt_required()
 def reply_to_events():
