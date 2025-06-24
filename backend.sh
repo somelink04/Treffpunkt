@@ -10,7 +10,7 @@ if [ "$1" == "setup" ]; then
 
   # DB Setup
   cd db/docker || return 1
-  sudo docker compose up -d
+  docker compose up -d
   cd ..
   echo "Passwort für MYSQL Docker Server (siehe db/docker/docker-compose.yaml)"
   mysql -p --protocol=TCP -u root < create_testdata.sql
