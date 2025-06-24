@@ -1,6 +1,6 @@
 from db_api import *
 import unittest
-from db_entities import *
+from .db_entities import *
 from sqlalchemy import text
 import datetime
 class Test(unittest.TestCase):

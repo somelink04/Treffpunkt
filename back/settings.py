@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify, abort
 from flask_jwt_extended import jwt_required, get_jwt_identity
 import json
-from db_api import get_user_settings, get_user, user_to_dict, add_user_time, add_user_category, add_user_region
+from .db_api import get_user_settings, get_user, user_to_dict, add_user_time, add_user_category, add_user_region
 
 bp = Blueprint('settings', __name__, url_prefix='/settings')
 
@@ -15,38 +15,38 @@ def get_settings():
     # Daten aus DB
     user_region, user_categories, user_times = get_user_settings(user_id)
     user_obj = get_user(user_id)
-    user_info = user_to_dict(user_obj) if user_obj else {}
+    user_info = user_obj if user_obj else {}
 
 
     region = None
     if user_region and len(user_region) > 0:
         r = user_region[0]
         region = {
-            "id": r.REGION_ID,
-            "zip": r.REGION_ZIP,
-            "name": r.REGION_NAME,
+            "id": r['REGION_ID'],
+            "zip": r['REGION_ZIP'],
+            "name": r['REGION_NAME']
         }
 
     # Kategorien als Liste von Dicts
     categories = []
     for c in user_categories:
         categories.append({
-            "id": c.CATEGORY_ID,
-            "name": c.CATEGORY_NAME,
-            "description": c.CATEGORY_DESCRIPTION,
-            "min": c.CATEGORY_MIN,
-            "acceptance_ratio": c.CATEGORY_ACCEPTION_RATIO,
+            "id": c['CATEGORY_ID'],
+            "name": c['CATEGORY_NAME'],
+            "description": c['CATEGORY_DESCRIPTION'],
+            "min": c['CATEGORY_MIN'],
+            "acceptance_ratio": c['CATEGORY_ACCEPTION_RATIO'],
         })
 
     # Zeiten als Liste von Dicts
     times = []
     for t in user_times:
         times.append({
-            "user_time_id": t.USER_TIME_ID,
-            "hour_id": t.HOUR_ID,
-            "hour_name": t.HOUR_NAME,
-            "weekday_id": t.WEEKDAY_ID,
-            "weekday_name": t.WEEKDAY_NAME,
+            "user_time_id": t['USER_TIME_ID'],
+            "hour_id": t['HOUR_ID'],
+            "hour_name": t['HOUR_NAME'],
+            "weekday_id": t['WEEKDAY_ID'],
+            "weekday_name": t['WEEKDAY_NAME'],
         })
 
     return jsonify({
@@ -100,11 +100,11 @@ def get_user_times():
     times = []
     for t in user_times:
         times.append({
-            "user_time_id": t.USER_TIME_ID,
-            "hour_id": t.HOUR_ID,
-            "hour_name": t.HOUR_NAME,
-            "weekday_id": t.WEEKDAY_ID,
-            "weekday_name": t.WEEKDAY_NAME,
+            "user_time_id": t['USER_TIME_ID'],
+            "hour_id": t['HOUR_ID'],
+            "hour_name": t['HOUR_NAME'],
+            "weekday_id": t['WEEKDAY_ID'],
+            "weekday_name": t['WEEKDAY_NAME'],
         })
 
     return jsonify(times=times)
@@ -120,11 +120,11 @@ def get_user_categories():
     categories = []
     for c in user_categories:
         categories.append({
-            "id": c.CATEGORY_ID,
-            "name": c.CATEGORY_NAME,
-            "description": c.CATEGORY_DESCRIPTION,
-            "min": c.CATEGORY_MIN,
-            "acceptance_ratio": c.CATEGORY_ACCEPTION_RATIO,
+            "id": c['CATEGORY_ID'],
+            "name": c['CATEGORY_NAME'],
+            "description": c['CATEGORY_DESCRIPTION'],
+            "min": c['CATEGORY_MIN'],
+            "acceptance_ratio": c['CATEGORY_ACCEPTION_RATIO'],
         })
 
     return jsonify(categories=categories)
@@ -142,9 +142,9 @@ def get_user_region():
     if user_region and len(user_region) > 0:
         r = user_region[0]
         region = {
-            "id": r.REGION_ID,
-            "zip": r.REGION_ZIP,
-            "name": r.REGION_NAME,
+            "id": r['REGION_ID'],
+            "zip": r['REGION_ZIP'],
+            "name": r['REGION_NAME'],
         }
 
     return jsonify(region=region)

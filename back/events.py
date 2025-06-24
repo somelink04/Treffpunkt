@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify, abort
 from flask_jwt_extended import jwt_required, get_jwt_identity
-from db_api import (
+from .db_api import (
     get_confirmed_user_event,
     get_unconfirmed_user_event,
     add_confirm,
@@ -20,14 +20,16 @@ def get_suggestions():
     #events ohne zusage
     events = get_unconfirmed_user_event(user_id)
     return jsonify([{
-        "id": e.EVENT_ID,
-        "name": e.CATEGORY_NAME,
-        "description": e.CATEGORY_DESCRIPTION,
-        "location": e.REGION_NAME,
-        "date": e.EVENT_TIME.isoformat() if e.EVENT_TIME else None
+        "id": e['EVENT_ID'],
+        "name": e['CATEGORY_NAME'],
+        "description": e['CATEGORY_DESCRIPTION'],
+        "location": e['REGION_NAME'],
+        "date": e['EVENT_TIME'].isoformat() if e['EVENT_TIME'] else None
     } for e in events])
 
 
+
+#Post testen? Bekomm hier einen network error
 @bp.route('/reply', methods=['POST'])
 @jwt_required()
 def reply_to_events():
@@ -53,7 +55,7 @@ def reply_to_events():
     return jsonify({"status": "success"})
 
 
-@bp.route('/accepted', methods=['POST'])
+@bp.route('/accepted', methods=['GET'])
 @jwt_required()
 def get_accepted_events():
     user_identity = json.loads(get_jwt_identity())
@@ -62,10 +64,10 @@ def get_accepted_events():
     events = get_confirmed_user_event(user_id)
 
     return jsonify([{
-        "id": e.EVENT_ID,
-        "name": e.CATEGORY_NAME,
-        "description": e.CATEGORY_DESCRIPTION,
-        "location": e.REGION_NAME,
-        "date": e.EVENT_TIME.isoformat() if e.EVENT_TIME else None,
+        "id": e['EVENT_ID'],
+        "name": e['CATEGORY_NAME'],
+        "description": e['CATEGORY_DESCRIPTION'],
+        "location": e['REGION_NAME'],
+        "date": e['EVENT_TIME'].isoformat() if e['EVENT_TIME'] else None,
         "participants": []  # keine ahung was hier ist
     } for e in events])

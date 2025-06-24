@@ -14,10 +14,10 @@ def init_app(app):
 def pack_at_data(username):
     users = get_all_users()
     for user in users:
-        if user.USER_USERNAME == username:
+        if user['USER_USERNAME'] == username:
             at_data = dict(
-                id=user.USER_ID,
-                username=user.USER_USERNAME
+                id=user['USER_ID'],
+                username=user['USER_USERNAME']
             )
             return create_access_token(identity=json.dumps(at_data))
     return None
