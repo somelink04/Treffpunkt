@@ -127,18 +127,23 @@ Antwort:
 {
     "weekdays": [
         {
-
             "id": <id>
             "name": <name> eg. "Montag"
         }, 
         ...
     ],
-    "hours": [ 0, 1, ..., 23 ]
+    "hours": [
+        {
+            "id": <id>,
+            "hour": <hour>
+        },
+        ...
+    ]
 }
 
 ---------------------------------------------------------------------------
 
-Pfad:           /settings/categories
+Pfad:           /settings/regions
 
 Methoden:       GET
 
