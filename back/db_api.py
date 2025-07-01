@@ -1,3 +1,5 @@
+from calendar import weekday
+
 from .db_entities import *
 
 #Create Session
@@ -439,6 +441,46 @@ def subquery_event(events, session, user_events):
 
         events.append(event)
     return events
+
+def get_all_categories():
+    with Session() as session:
+        categories = session.query(Category).all()
+        return [
+            {
+                "id": category.CATEGORY_ID,
+                "name":category.CATEGORY_NAME,
+                "description": category.CATEGORY_DESCRIPTION
+            }
+            for category in categories
+        ]
+
+def get_all_regions():
+    with Session() as session:
+        regions = session.query(Region).all()
+        return [
+            {
+                "id": region.REGION_ID,
+                "zip": region.REGION_ZIP,
+                "name": region.REGION_NAME
+            }
+            for region in regions
+        ]
+
+def get_all_time():
+    with Session() as session:
+        hours = session.query(Hour).all()
+        weekdays = session.query(Weekday).all()
+        data = {
+            "weekdays": [
+                {"id": weekday.WEEKDAY_ID, "name": weekday.WEEKDAY_NAME}
+                for weekday in weekdays
+            ],
+            "hours": [
+                {"id": hour.HOUR_ID, "hour": hour.HOUR_NAME}
+                for hour in hours
+            ]
+        }
+        return data
 
 
 #Get User Settings
