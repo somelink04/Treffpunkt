@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import  { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import "./style/global.css";
 
 export default function LoginForm() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [error, setError] = useState(null);
     const navigate = useNavigate();
 
     const hashPassword = async (pw) => {
@@ -17,9 +18,16 @@ export default function LoginForm() {
 
     const handleLogin = async (e) => {
         e.preventDefault();
+        setError(null);
 
         console.log("Eingabe Benutzername:", username);
         console.log("Eingabe Passwort:", password);
+
+        // Client-side validation
+        if (!username || !password) {
+            setError('Bitte Benutzername und Passwort eingeben.');
+            return;
+        }
 
         const hash = await hashPassword(password);
         console.log("gehashtes Passwort:", hash);
@@ -28,17 +36,18 @@ export default function LoginForm() {
         const loginRes = await fetch("auth/login", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ username, password: hash})
+            body: JSON.stringify({ username, password: hash })
         });
 
-        if (!loginRes.ok){
+        if (!loginRes.ok) {
             console.error("Login fehlgeschlagen:", loginRes.status);
+            setError('Benutzername oder Passwort ist falsch.');
             return;
         }
 
         const loginData = await loginRes.json();
         const at = loginData.access_token;
-        console.log("Access-Token:", at);
+        /*localStorage.setItem("access_token", at);*/
 
         // IDENTITY-REQUEST
         const identRes = await fetch("auth/ident", {
@@ -46,8 +55,9 @@ export default function LoginForm() {
             headers: { "Authorization": "Bearer " + at }
         });
 
-        if (!identRes.ok){
+        if (!identRes.ok) {
             console.error("Ident-Aufruf fehlgeschlagen:", identRes.status);
+            setError('Fehler beim Abrufen der Benutzeridentität.');
             return;
         }
 
@@ -74,15 +84,14 @@ export default function LoginForm() {
                 style={{
                     borderRadius: "23px",
                     maxWidth: "340px"
-                }}>
-                <form onSubmit={handleLogin} className="d-grid gap-3 needs-validation" noValidate>
+            }}>
+                <form onSubmit={handleLogin} className="d-grid gap-3">
                     <input
                         className="form-control"
                         type="text"
                         placeholder="Benutzername"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
-                        required
                     />
                     <input
                         className="form-control"
@@ -90,12 +99,11 @@ export default function LoginForm() {
                         placeholder="Passwort"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        required
                     />
-                    <button
-                        className="btn btn-orange w-100"
-                        type="submit"
-                    >
+                    <small className="text-danger">
+                        {error}
+                    </small>
+                    <button className="btn btn-orange w-100" type="submit">
                         Anmeldung
                     </button>
                 </form>
