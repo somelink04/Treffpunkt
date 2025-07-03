@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "./NavbarComp";
+import {Link} from "react-router-dom";
 
 
 /*Anfrage mit fetch("settings/times", methode: "GET")
@@ -144,26 +145,25 @@ export default function CalendarForm() {
     return (
         <>
             <div className="position-relative min-vh-100 overflow-hidden">
-                {/* ─────────── Header ─────────── */}
+                {/* Header */}
                 <div
                     className="bg-blue text-white px-4 py-4"
                     style={{
                         height: "50vh",
-                        borderBottomLeftRadius: "37px",
-                        borderBottomRightRadius: "108px"
+                        borderRadius: "0 0 108px 37px"
                     }}
                 >
                     <header className="d-flex justify-content-between align-items-center">
                         <h1 className="fw-bold m-0">Kalender</h1>
 
                         <div className="d-flex gap-3">
-                            <img src="calendar.svg" width="24" height="24" alt=""/>
-                            <img src="filter.svg" width="24" height="24" alt=""/>
+                            <Link to="/calendar"><img src="calendar.svg" width="25" height="25" alt=""/></Link>
+                            <Link to="/category"><img src="filter.svg" width="25" height="25" alt=""/></Link>
                         </div>
                     </header>
                 </div>
 
-                {/* ─────────── Centered Card ─────────── */}
+                {/* Centered Card */}
                 <div
                     className="card p-4 pb-5 position-absolute top-50 start-50 translate-middle"
                     style={{
@@ -194,10 +194,8 @@ export default function CalendarForm() {
                                 />
                             ))
                         ) : (
-                            <p
-                                className="text-muted"
-                            >
-                                Gib an wann du Zeit hast :)
+                            <p className="text-muted">
+                                Teile uns gerne mit wann du Zeit hast :)
                             </p>
                         )}
                     </div>
