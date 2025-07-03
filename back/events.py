@@ -8,7 +8,7 @@ from .db_api import (
 )
 import json
 
-bp = Blueprint('events', __name__, url_prefix='/events')
+bp = Blueprint('events', __name__, url_prefix='/api/events')
 
 
 @bp.route('/suggestion', methods=['GET'])
@@ -24,14 +24,13 @@ def get_suggestions():
         "name": e['CATEGORY_NAME'],
         "description": e['CATEGORY_DESCRIPTION'],
         "location": e['REGION_NAME'],
-        "date": e['EVENT_TIME'].isoformat() if e['EVENT_TIME'] else None
+        "date": e['EVENT_TIME']
     } for e in events])
-
 
 
 @bp.route('/reply', methods=['POST'])
 @jwt_required()
-def reply_to_events():
+def reply():
     user_identity = json.loads(get_jwt_identity())
     user_id = user_identity['id']
 
@@ -51,12 +50,10 @@ def reply_to_events():
         else:
             revoke_confirm(event_id)
 
-    return jsonify({"status": "success"})
-
 
 @bp.route('/accepted', methods=['GET'])
 @jwt_required()
-def get_accepted_events():
+def get_accepted():
     user_identity = json.loads(get_jwt_identity())
     user_id = user_identity['id']
 
@@ -67,6 +64,6 @@ def get_accepted_events():
         "name": e['CATEGORY_NAME'],
         "description": e['CATEGORY_DESCRIPTION'],
         "location": e['REGION_NAME'],
-        "date": e['EVENT_TIME'].isoformat() if e['EVENT_TIME'] else None,
+        "date": e['EVENT_TIME'],
         "participants": []  # keine ahung was hier ist
     } for e in events])

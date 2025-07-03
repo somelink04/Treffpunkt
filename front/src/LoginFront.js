@@ -33,7 +33,7 @@ export default function LoginForm() {
         console.log("gehashtes Passwort:", hash);
 
         // LOGIN-REQUEST
-        const loginRes = await fetch("auth/login", {
+        const loginRes = await fetch("api/auth/login", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ username, password: hash })
@@ -47,10 +47,10 @@ export default function LoginForm() {
 
         const loginData = await loginRes.json();
         const at = loginData.access_token;
-        /*localStorage.setItem("access_token", at);*/
+        localStorage.setItem("access_token", at);
 
         // IDENTITY-REQUEST
-        const identRes = await fetch("auth/ident", {
+        const identRes = await fetch("api/auth/ident", {
             method: "GET",
             headers: { "Authorization": "Bearer " + at }
         });

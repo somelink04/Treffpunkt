@@ -61,11 +61,7 @@ Aufbau:
     ],
     "categories": [<id der jeweiligen Kategorie in DB>, 4, 7, 23, ...],
     "user": {
-        "region": {
-            // müssen nicht beide spezifiziert werden, eins kann weggelassen werden
-            // falls beide spezifiziert sind, wird die id genutzt, unabhängig davon, ob die PLZ dazu passt!
-            "id": <region id>,
-            "zip": <zip> 
+        "region": <id>
     }
 }
 

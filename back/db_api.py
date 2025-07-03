@@ -466,7 +466,7 @@ def get_all_regions():
             for region in regions
         ]
 
-def get_all_time():
+def get_all_times():
     with Session() as session:
         hours = session.query(Hour).all()
         weekdays = session.query(Weekday).all()
@@ -488,7 +488,7 @@ def get_user_settings(user_id):
     """
     Get all settings for the matching
     :param user_id: ID of the User
-    :return: Region of the User, Cathegories of the User, Times of the User (Weekday-Hour pair)
+    :return: Region of the User, Categories of the User, Times of the User (Weekday-Hour pair)
     """
     with Session() as session:
         # 1. Get the user and their region (no join)
@@ -497,13 +497,13 @@ def get_user_settings(user_id):
         if user and user.USER_REGION:
             region = session.query(Region).filter(Region.REGION_ID == user.USER_REGION).first()
 
-        user_region = [{
+        user_region = {
             'USER_ID': user.USER_ID,
             'USER_REGION': user.USER_REGION,
             'REGION_ID': region.REGION_ID if region else None,
             'REGION_NAME': region.REGION_NAME if region else None,
             'REGION_ZIP': region.REGION_ZIP if region else None
-        }] if user else []
+        } if user else {}
 
         # 2. Get all UserCategory records, then fetch matching categories (no join)
         user_categories = session.query(UserCategory).filter(UserCategory.USER_USER_CATEGORY_ID == user_id).all()
