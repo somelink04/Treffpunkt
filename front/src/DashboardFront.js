@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import Navbar from "./NavbarComp";
 import { Link } from "react-router-dom";
 
@@ -28,10 +28,28 @@ const testSlides = [
 ];
 
 export default function DashboardForm() {
-    const [slides, setSlides] = useState(
-        testSlides.map((slide) => ({ ...slide, confirmed: false }))
-    );
+    const mapSlides = (slides) => {
+        return slides.map((slide) => ({ ...slide, confirmed: false }))
+    };
+
+    const [slides, setSlides] = useState([]);
     const [currentIndex, setCurrentIndex] = useState(0);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            await fetch("api/events/suggestion", {
+                method: "GET",
+                headers: {
+                    "Authorization": `Bearer ${localStorage.getItem("access_token")}`
+                }
+            })
+                .then(res => res.json())
+                .then(res => {
+                    setSlides(mapSlides(res));
+                })
+        }
+        fetchData()
+    },[]);
 
     // Infinite wrap-around
     const prevSlide = () => {
@@ -85,7 +103,7 @@ export default function DashboardForm() {
                         <Link to="/calendar">
                             <img src="calendar.svg" width="25" height="25" alt="" />
                         </Link>
-                        <Link to="/category">
+                        <Link to="/categories">
                             <img src="filter.svg" width="25" height="25" alt="" />
                         </Link>
                     </div>

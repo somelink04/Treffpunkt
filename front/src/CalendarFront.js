@@ -158,7 +158,7 @@ export default function CalendarForm() {
 
                         <div className="d-flex gap-3">
                             <Link to="/calendar"><img src="calendar.svg" width="25" height="25" alt=""/></Link>
-                            <Link to="/category"><img src="filter.svg" width="25" height="25" alt=""/></Link>
+                            <Link to="/categories"><img src="filter.svg" width="25" height="25" alt=""/></Link>
                         </div>
                     </header>
                 </div>

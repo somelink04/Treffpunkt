@@ -13,7 +13,7 @@ export default function NavigationBar() {
             }}>
             <Link to="/dashboard" className=""><img src="clipboard.svg" width="40" height="40" alt=""/></Link>
             <Link to="/accepted" className=""><img src="bell.svg" width="40" height="40" alt=""/></Link>
-            <Link to="/profil" className=""><img src="profile.svg" width="38" height="38" alt=""/></Link>
+            <Link to="/profile" className=""><img src="profile.svg" width="38" height="38" alt=""/></Link>
         </nav>
     );
 }

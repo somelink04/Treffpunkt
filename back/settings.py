@@ -25,7 +25,7 @@ def get_settings():
         user_info = dict(
             firstname=user_obj['USER_FIRSTNAME'],
             surname=user_obj['USER_SURNAME'],
-            dayofbirth=user_obj['USER_BIRTHDATE'],
+            dayofbirth=user_obj['USER_BIRTHDATE'].isoformat(),
             username=user_obj['USER_USERNAME'],
             email=user_obj['USER_EMAIL'],
             region=user_obj['USER_REGION'],

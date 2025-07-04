@@ -45,18 +45,19 @@ const testData = [
 ];
 
 export default function AcceptedEvents() {
-    const [events, setEvents] = useState(testData);
+    const [events, setEvents] = useState([]);
     const [openDropdownId, setOpenDropdownId] = useState(null);
 
     useEffect(() => {
         const fetchAcceptedEvents = async () => {
             try {
-                const token = localStorage.getItem('token');
-                const response = await fetch('/accepted', {
-                    method: 'POST',
+                //wird der token in LS gespeichert oder muss ich mir den hier erneut holen??
+                const token = localStorage.getItem('access_token');
+
+                const response = await fetch('/api/events/accepted', {
+                    method: 'GET',
                     headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': 'Bearer ${token}',
+                        "Authorization": "Bearer " + token,
                     }
                 });
                 if (!response.ok) {
@@ -116,7 +117,7 @@ export default function AcceptedEvents() {
                         <Link to="/calendar">
                             <img src="calendar.svg" width="25" alt="" />
                         </Link>
-                        <Link to="/category">
+                        <Link to="/categories">
                             <img src="filter.svg" width="25" alt="" />
                         </Link>
                     </div>

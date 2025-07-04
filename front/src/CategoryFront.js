@@ -22,6 +22,7 @@ import {
     Suitcase2,
     Palette
 } from "react-bootstrap-icons";
+import Scrollspy from "bootstrap/js/src/scrollspy";
 
 
 
@@ -52,7 +53,12 @@ export default function CategoryForm() {
     {/*Holen der Daten (Kategorien) von der Datenbank*/}
     //https://dev.to/antdp425/react-fetch-data-from-api-with-useeffect-27le
     useEffect(() => {
-        fetch("settings/categories/...") // oder: "https://your-api.com/...."
+        fetch("api/settings/categories", {
+            method: 'GET',
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+            }
+        })
             .then((response) => response.json())
             .then((data) => setCategories(data))
             .catch((err) => console.error("Fehler beim Laden der Kategorien:", err));
@@ -85,7 +91,7 @@ export default function CategoryForm() {
             </Row>
             {/* Spalten und Zeilen mit Kategorien Dynamisch erzeugen */}
             <Row className="g-3 mt-4">
-                {interests.map((item, idx) => (
+                {categories.map((item, idx) => (
                     <Col xs={4} key={idx}>
                         <button
                             className={`btn w-100 py-3 mb-2 text-white rounded ${

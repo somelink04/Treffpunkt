@@ -10,7 +10,7 @@ const testData = {
     user: {
         firstname: "Heinz",
         surname: "Müller",
-        username: "Heinz61",
+        username: "heinz60",
         dayofbirth: "21.07.2003",
         email: "heinz.müller60@beispiel.de",
         gender: "männlich",
@@ -20,8 +20,53 @@ const testData = {
 export default function SettingsPage() {
     const [interests, setInterests] = useState();
     const [timezone, setTimezone] = useState();
-    const { firstname, surname, username, dayofbirth, region } = testData.user;
-    const initial = firstname.charAt(0).toUpperCase();
+
+    //const { firstname, surname, username, dayofbirth, region } = testData.user;
+
+    const [firstname, setFirstname] = useState("");
+    const [surname, setSurname] = useState("");
+    const [username, setUser] = useState("");
+    const [dayofbirth, setDayofbirth] = useState("");
+    const [region, setRegion] = useState("");
+
+    //const initial = firstname.charAt(0).toUpperCase();
+
+    const [initial,  setInitial] = useState("A");
+
+    useEffect(() => {
+        const fetchRegions = async () => {
+            return await fetch("api/settings/regions", {
+                method: "GET",
+                headers: {
+                    "Authorization": `Bearer ${localStorage.getItem("access_token")}`
+                }
+            }).then(res => res.json());
+        }
+
+        const fetchData = async () => {
+            await fetch("api/settings", {
+                method: "GET",
+                headers: {
+                    "Authorization": `Bearer ${localStorage.getItem("access_token")}`
+                }
+            }).then(res => res.json())
+            .then(async res => {
+                res = res.user;
+                setFirstname(res["firstname"]);
+                setSurname(res["surname"]);
+                setUser(res["username"]);
+                setDayofbirth(res["dayofbirth"]);
+                setRegion(await fetchRegions().then(regions => {
+                    const ro = regions.filter(region => region.id === res["region"])
+                    return ro[0]['name'];
+                }));
+
+                if (firstname !== undefined)
+                    setInitial(firstname.charAt(0).toUpperCase());
+            });
+        };
+        fetchData();
+    });
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -41,7 +86,7 @@ export default function SettingsPage() {
                         <Link to="/calendar">
                             <img src="calendar.svg" width="25" height="25" alt="Kalender" />
                         </Link>
-                        <Link to="/category">
+                        <Link to="/categories">
                             <img src="filter.svg" width="25" height="25" alt="Filter" />
                         </Link>
                     </div>

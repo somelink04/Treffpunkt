@@ -24,7 +24,7 @@ def get_suggestions():
         "name": e['CATEGORY_NAME'],
         "description": e['CATEGORY_DESCRIPTION'],
         "location": e['REGION_NAME'],
-        "date": e['EVENT_TIME']
+        "date": e['EVENT_TIME'].isoformat(),
     } for e in events])
 
 
@@ -64,6 +64,6 @@ def get_accepted():
         "name": e['CATEGORY_NAME'],
         "description": e['CATEGORY_DESCRIPTION'],
         "location": e['REGION_NAME'],
-        "date": e['EVENT_TIME'],
+        "date": e['EVENT_TIME'].isoformat(),
         "participants": []  # keine ahung was hier ist
     } for e in events])
