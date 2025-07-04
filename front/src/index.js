@@ -5,8 +5,10 @@ import LoginFront from "./LoginFront";
 import CalendarFront from "./CalendarFront";
 import DashboardFront from "./DashboardFront"
 import CategoryFront from "./CategoryFront";
-import SettingsFront from "./SettingsFront";
+import ProfileFront from "./ProfileFront";
 import AcceptedFront from "./AcceptedFront";
+import testFront from "./test";
+import "./style/global.css";
 
 export default function App(){
     return (

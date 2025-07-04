@@ -1,53 +1,103 @@
-import React, { useState } from "react";
-import {Link, Navigate, useNavigate} from 'react-router-dom';
-import "./style/global.css";
+import React, { useState, useEffect } from "react";
+import Navbar from "./NavbarComp";
 
-export default function DashboardForm()
-{
+// Testdaten zum Carousel-Navigieren
+const testSlides = [
+    {
+        title: "Erstes Treffen",
+        day: "01.07.2025",
+        address: "Amberg",
+        participants: 5,
+    },
+    {
+        title: "Zweites Treffen",
+        day: "02.07.2025",
+        address: "Nürnberg",
+        participants: 10,
+    },
+    {
+        title: "Drittes Treffen",
+        day: "03.07.2025",
+        address: "München",
+        participants: 8,
+    },
+];
 
+export default function DashboardForm() {
+    // Initialisierung mit Testdaten
+    const [slides, setSlides] = useState(
+        testSlides.map(slide => ({ ...slide, confirmed: false }))
+    );
+    const [currentIndex, setCurrentIndex] = useState(0);
+
+    const prevSlide = () => {
+        setCurrentIndex(prev => (prev > 0 ? prev - 1 : 0));
+    };
+
+    const nextSlide = () => {
+        setCurrentIndex(prev => (prev < slides.length - 1 ? prev + 1 : prev));
+    };
+
+    const toggleConfirm = () => {
+        setSlides(prevSlides => {
+            const copy = [...prevSlides];
+            copy[currentIndex].confirmed = !copy[currentIndex].confirmed;
+            return copy;
+        });
+    };
+
+    const slide = slides[currentIndex];
 
     return (
         <>
-            <nav className="navbar navbar-light px-3 d-flex justify-content-between align-items-center"
-                 style={{backgroundColor: "#546FF1", height: "60px", borderRadius: "0 0 12px 12px"}} >
-                <h1 className="navbar-brand text-white mb-0 fw-bold"
-                    style={{fontSize: "1.8rem"}}>Für dich!</h1>
-                <div className="d-flex gap-3">
-                    <Link className="nav-icon-small text-white" to="#">
-                        <i className="fa-solid fa-calendar-days"></i>
-                    </Link>
-                    <Link className="nav-icon-small text-white" to="#">
-                        <i className="fa-solid fa-filter"></i>
-                    </Link>
-                </div>
-            </nav>
-            <div className="container mt-4 text-white">
+            {/* Header */}
+            <div className="bg-blue text-white px-4 py-4 mb-5" style={{ borderRadius: '0 0 37px 37px' }}>
+                <header className="d-flex justify-content-center">
+                    <h1 className="fw-bold m-0">Treffen</h1>
+                </header>
+            </div>
 
-                <div id="slide-container" className="position-relative text-center mt-4">
-                    <div id="arrow-controls" className="position-absolute w-100 d-flex justify-content-between">
-                        <button id="prevBtn" className="btn btn-warning rounded-circle">&#8592;</button>
-                        <button id="nextBtn" className="btn btn-warning rounded-circle">&#8594;</button>
+            {/* Carousel */}
+            <div className="container mt-4 text-white">
+                <div className="position-relative text-center mt-4">
+                    <button
+                        onClick={prevSlide}
+                        disabled={currentIndex === 0}
+                        className="btn btn-transparent position-absolute start-0 top-50 translate-middle-y"
+                    >
+                        <img src="chevron-left.svg" width="24" height="24" alt="Zurück" />
+                    </button>
+
+                    <div className="slide-card mx-auto">
+                        <h1 className="fw-bold">{slide.title}</h1>
+                        <p>📅 {slide.day}</p>
+                        <p>📍 {slide.address}</p>
+                        <p>👥 {slide.participants}</p>
+                        {slide.confirmed && (
+                            <p className="text-success fw-semibold mt-3">✅ Zugestimmt</p>
+                        )}
                     </div>
+
+                    <button
+                        onClick={nextSlide}
+                        disabled={currentIndex === slides.length - 1}
+                        className="btn btn-transparent position-absolute end-0 top-50 translate-middle-y"
+                    >
+                        <img src="chevron-right.svg" width="24" height="24" alt="Weiter" />
+                    </button>
                 </div>
 
                 <div className="text-center mt-4">
-                    <button id="confirmBtn" className="btn btn-warning px-5 py-2 rounded-pill">✔</button>
+                    <button
+                        onClick={toggleConfirm}
+                        className="btn btn-orange w-100 rounded-pill border-0 d-flex justify-content-center align-items-center"
+                        style={{ padding: "12px" }}
+                    >
+                        <img src="check.svg" width="24" height="24" alt="Bestätigen" />
+                    </button>
                 </div>
             </div>
-            <nav className="navbar fixed-bottom"
-                 style={{backgroundColor: "#546FF1", height: "60px", borderRadius: "12px 12px 0 0", position: "absolute"}}>
-                <div className="container-fluid d-flex justify-content-center gap-4">
-                    <button className="btn btn-link nav-icon-small text-white" type="button">
-                        <i className="fa-regular fa-calendar"></i>
-                    </button>
-                    <button className="btn btn-link nav-icon-small text-white" type="button">
-                        <i className="fa-solid fa-compass"></i>
-                    </button>
-                    <button className="btn btn-link nav-icon-small text-white" type="button">
-                        <i className="fa-solid fa-user"></i>
-                    </button>
-                </div>
-            </nav>
+            <Navbar />
         </>
     );
 }

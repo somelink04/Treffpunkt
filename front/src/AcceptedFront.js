@@ -1,4 +1,6 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import Navbar from "./NavbarComp";
 
 export default function AcceptedEvents() {
     const [events, setEvents] = useState([]);
@@ -32,21 +34,55 @@ export default function AcceptedEvents() {
     }, []);
 
     return (
-        <div className="accepted-events">
-            <h2>Angenommene Events</h2>
-            {events.length === 0 ? (
-                <p>Keine Events gefunden.</p>
-            ) : (
-                events.map(event => (
-                    <div key={event.id} className="event-card">
-                        <h3>{event.name}</h3>
-                        <p>{event.description}</p>
-                        <p><strong>Ort:</strong> {event.location}</p>
-                        <p><strong>Datum:</strong> {event.date ? new Date(event.date).toLocaleString() : 'Unbekannt'}
-                        </p>
+        <>
+            {/* ─────────── Header ─────────── */}
+                <div
+                    className="bg-blue text-white px-4 py-4 mb-5 fixed-top"
+                    style={{
+                        borderRadius: '0 0 37px 37px'
+                    }}
+                >
+                    <header className="d-flex justify-content-between align-items-center">
+                        <h1 className="fw-bold m-0">Deine Treffen</h1>
+
+                        <div className="d-flex gap-3">
+                            <Link to="/calendar"><img src="calendar.svg" width="25" height="25" alt=""/></Link>
+                            <Link to="/category"><img src="filter.svg" width="25" height="25" alt=""/></Link>
+                        </div>
+                    </header>
+                </div>
+
+            {/* ─────────── Centered Card ─────────── */}
+                <main className=" position-absolute top-50 start-50 translate-middle">
+                    <div
+                        className="card p-4 pb-5"
+                        style={{
+                            borderRadius: "23px",
+                            width: "90%",
+                            maxWidth: "340px",
+                            height: "480px" //vorläufig
+                        }}
+                    >
+                        <div className="accepted-events">
+                            <h2>Angenommene Events</h2>
+                            {events.length === 0 ? (
+                                <p>Keine Events gefunden.</p>
+                            ) : (
+                                events.map(event => (
+                                    <div key={event.id} className="event-card">
+                                        <h3>{event.name}</h3>
+                                        <p>{event.description}</p>
+                                        <p><strong>Ort:</strong> {event.location}</p>
+                                        <p>
+                                            <strong>Datum:</strong> {event.date ? new Date(event.date).toLocaleString() : 'Unbekannt'}
+                                        </p>
+                                    </div>
+                                ))
+                            )}
+                        </div>
                     </div>
-                ))
-            )}
-        </div>
+                </main>
+                <Navbar/>
+        </>
     );
 }
