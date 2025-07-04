@@ -1,9 +1,13 @@
 from flask import Blueprint, request, jsonify, abort
 from flask_jwt_extended import jwt_required, get_jwt_identity
 import json
-from .db_api import get_user_settings, get_user, user_to_dict, add_user_time, add_user_category, add_user_region
 
-bp = Blueprint('settings', __name__, url_prefix='/settings')
+from .db_api import (
+    get_user_settings, get_user, add_user_time, add_user_category, add_user_region,
+    get_all_times, get_all_regions, get_all_categories
+)
+
+bp = Blueprint('settings', __name__, url_prefix='/api/settings')
 
 @bp.route("", methods=['GET'])
 @jwt_required()
@@ -15,46 +19,43 @@ def get_settings():
     # Daten aus DB
     user_region, user_categories, user_times = get_user_settings(user_id)
     user_obj = get_user(user_id)
-    user_info = user_obj if user_obj else {}
 
+    user_info = None
+    if user_obj:
+        user_info = dict(
+            firstname=user_obj['USER_FIRSTNAME'],
+            surname=user_obj['USER_SURNAME'],
+            dayofbirth=user_obj['USER_BIRTHDATE'].isoformat(),
+            username=user_obj['USER_USERNAME'],
+            email=user_obj['USER_EMAIL'],
+            region=user_obj['USER_REGION'],
+        )
 
-    region = None
-    if user_region and len(user_region) > 0:
-        r = user_region[0]
-        region = {
-            "id": r['REGION_ID'],
-            "zip": r['REGION_ZIP'],
-            "name": r['REGION_NAME']
-        }
-
-    # Kategorien als Liste von Dicts
     categories = []
     for c in user_categories:
-        categories.append({
-            "id": c['CATEGORY_ID'],
-            "name": c['CATEGORY_NAME'],
-            "description": c['CATEGORY_DESCRIPTION'],
-            "min": c['CATEGORY_MIN'],
-            "acceptance_ratio": c['CATEGORY_ACCEPTION_RATIO'],
-        })
+        categories.append(c['CATEGORY_ID'])
 
     # Zeiten als Liste von Dicts
-    times = []
+    times: list[dict[str, int | list[int]]] = []
     for t in user_times:
-        times.append({
-            "user_time_id": t['USER_TIME_ID'],
-            "hour_id": t['HOUR_ID'],
-            "hour_name": t['HOUR_NAME'],
-            "weekday_id": t['WEEKDAY_ID'],
-            "weekday_name": t['WEEKDAY_NAME'],
-        })
+        wd = t['WEEKDAY_ID']
+        hr = t['HOUR_ID']
 
-    return jsonify({
-        "user": user_info,
-        "region": region,
-        "categories": categories,
-        "times": times,
-    })
+        # Add hour entry to existing weekday if exists
+        w_kvp = [ kvp for kvp in times if kvp['weekday'] == wd]
+        if len(w_kvp) > 0:
+            w_kvp[0]['hours'].append(hr)
+        else:
+            times.append({
+                'weekday': wd,
+                'hours': [hr]
+            })
+
+    return jsonify(dict(
+        user=user_info,
+        categories=categories,
+        times=times
+    ))
 
 
 @bp.route("", methods=['POST'])
@@ -90,61 +91,15 @@ def post_settings():
 #times
 @bp.route("/times", methods=['GET'])
 @jwt_required()
-def get_user_times():
-    ident = get_jwt_identity()
-    user = json.loads(ident)
-    user_id = user['id']
+def get_times():
+    return jsonify(get_all_times())
 
-    _, _, user_times = get_user_settings(user_id)
-
-    times = []
-    for t in user_times:
-        times.append({
-            "user_time_id": t['USER_TIME_ID'],
-            "hour_id": t['HOUR_ID'],
-            "hour_name": t['HOUR_NAME'],
-            "weekday_id": t['WEEKDAY_ID'],
-            "weekday_name": t['WEEKDAY_NAME'],
-        })
-
-    return jsonify(times=times)
 @bp.route("/categories", methods=['GET'])
 @jwt_required()
-def get_user_categories():
-    ident = get_jwt_identity()
-    user = json.loads(ident)
-    user_id = user['id']
-
-    _, user_categories, _ = get_user_settings(user_id)
-
-    categories = []
-    for c in user_categories:
-        categories.append({
-            "id": c['CATEGORY_ID'],
-            "name": c['CATEGORY_NAME'],
-            "description": c['CATEGORY_DESCRIPTION'],
-            "min": c['CATEGORY_MIN'],
-            "acceptance_ratio": c['CATEGORY_ACCEPTION_RATIO'],
-        })
-
-    return jsonify(categories=categories)
+def get_categories():
+    return jsonify(get_all_categories())
 
 @bp.route("/regions", methods=['GET'])
 @jwt_required()
-def get_user_region():
-    ident = get_jwt_identity()
-    user = json.loads(ident)
-    user_id = user['id']
-
-    user_region, _, _ = get_user_settings(user_id)
-
-    region = None
-    if user_region and len(user_region) > 0:
-        r = user_region[0]
-        region = {
-            "id": r['REGION_ID'],
-            "zip": r['REGION_ZIP'],
-            "name": r['REGION_NAME'],
-        }
-
-    return jsonify(region=region)
+def get_regions():
+    return jsonify(get_all_regions())

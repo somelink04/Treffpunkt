@@ -2,14 +2,7 @@ from flask import Flask
 from . import auth, events, settings
 
 def create_app():
-    app = Flask(__name__,
-                static_url_path='/',
-                static_folder='../front/build')
-
-    @app.route(rule='/', defaults={'p': ''})
-    @app.route(rule="/<path:p>", methods=["GET"])
-    def serve_front(p):
-        return app.send_static_file('index.html')
+    app = Flask(__name__)
 
     auth.init_app(app)
     app.register_blueprint(auth.bp)
