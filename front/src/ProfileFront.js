@@ -77,67 +77,68 @@ export default function SettingsPage() {
                 </div>
                 <div style={{ marginTop: "-70px" }} >
                     <div className="d-flex align-items-center ">
-                        <img src="calendar.svg" width="25" height="25" className="me-2" alt="Geburtstag" />
+                        <img src="calendar-blue.svg" width="25" height="25" className="me-2" alt="" />
                         <span>{dayofbirth}</span>
                     </div>
 
                     <div className="d-flex align-items-center">
-                        <img src="location.svg" width="25" height="25" className="me-2" alt="Region" />
+                        <img src="location-blue.svg" width="25" height="25" className="me-2" alt="" />
                         <span>{region}</span>
                     </div>
                 </div>
 
                 {/* Editable Fields */}
-                {/* Keine Ahnung bro nicht von mir*/}
-                <form onSubmit={handleSubmit}>
-                    <hr className="border-light"/>
+                <div className="mt-auto">
+                    <form onSubmit={handleSubmit}>
+                        <hr className="border-light"/>
 
-                    <div className="mb-3">
+                        <div className="mb-3">
+                            <button
+                                type="button"
+                                className="btn btn-light w-100 rounded-pill"
+                                onClick={() => {
+                                    const newInterests = prompt("Neue Interessen eingeben:", interests);
+                                    if (newInterests !== null) setInterests(newInterests);
+                                }}
+                            >
+                                Hobbys ändern
+                            </button>
+                        </div>
+
+                        <div className="mb-3">
+                            <button
+                                type="button"
+                                className="btn btn-light w-100 rounded-pill"
+                                onClick={() => {
+                                    const newRegion = prompt("Neue PLZ/Region eingeben:", region);
+                                    if (newRegion !== null) setTimezone(newRegion);
+                                }}
+                            >
+                                PLZ ändern
+                            </button>
+                        </div>
+
+                        <div className="mb-3">
+                            <button
+                                type="button"
+                                className="btn btn-light w-100 rounded-pill"
+                                onClick={() => {
+                                    const newTimezone = prompt("Neue Uhrzeit/Wochenzeiten eingeben:", timezone);
+                                    if (newTimezone !== null) setTimezone(newTimezone);
+                                }}
+                            >
+                                Uhrzeit ändern
+                            </button>
+                        </div>
+
                         <button
-                            type="button"
-                            className="btn btn-light w-100 rounded-pill"
-                            onClick={() => {
-                                const newInterests = prompt("Neue Interessen eingeben:", interests);
-                                if (newInterests !== null) setInterests(newInterests);
-                            }}
+                            type="submit"
+                            className="btn btn-orange w-100 rounded-pill mt-3 border-0 d-flex justify-content-center align-items-center"
                         >
-                            Hobbys ändern
+                            Speichern
                         </button>
-                    </div>
-
-                    <div className="mb-3">
-                        <button
-                            type="button"
-                            className="btn btn-light w-100 rounded-pill"
-                            onClick={() => {
-                                const newRegion = prompt("Neue PLZ/Region eingeben:", region);
-                                if (newRegion !== null) setTimezone(newRegion);
-                            }}
-                        >
-                            PLZ ändern
-                        </button>
-                    </div>
-
-                    <div className="mb-3">
-                        <button
-                            type="button"
-                            className="btn btn-light w-100 rounded-pill"
-                            onClick={() => {
-                                const newTimezone = prompt("Neue Uhrzeit/Wochenzeiten eingeben:", timezone);
-                                if (newTimezone !== null) setTimezone(newTimezone);
-                            }}
-                        >
-                            Uhrzeit ändern
-                        </button>
-                    </div>
-
-                    <button
-                        type="submit"
-                        className="btn btn-orange w-100 rounded-pill mt-3 border-0 d-flex justify-content-center align-items-center"
-                    >
-                        Speichern
-                    </button>
-                </form>
+                    </form>
+                </div>
             </div>
 
 

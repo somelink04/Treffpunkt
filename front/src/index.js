@@ -7,7 +7,7 @@ import DashboardFront from "./DashboardFront"
 import CategoryFront from "./CategoryFront";
 import ProfileFront from "./ProfileFront";
 import AcceptedFront from "./AcceptedFront";
-import testFront from "./test";
+import CardCarousel from "./test";
 import "./style/global.css";
 
 export default function App(){
@@ -20,6 +20,7 @@ export default function App(){
                 <Route path='/categories' element={<CategoryFront />} />
                 <Route path='/dashboard' element={<DashboardFront />} />
                 <Route path='/accepted' element={<AcceptedFront />} />
+                <Route path='/test' element={<CardCarousel />} />
             </Routes>
     );
 }
