@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import "bootstrap-icons/font/bootstrap-icons.css";
 import Navbar from "./NavbarComp";
 import {Link} from "react-router-dom";
+
 import {
-    ArrowLeft,
     Camera,
     Book,
     Film,
@@ -15,8 +15,6 @@ import {
     Sun,
     Tools,
     Bag,
-    Globe2,
-    Headphones,
     Suitcase2,
     Palette
 } from "react-bootstrap-icons";
@@ -41,6 +39,7 @@ const interests = [
     { name: "Lorem", icon: <Palette /> },
     { name: "Lorem", icon: <Palette /> },
 ];
+
 
 
 export default function CategoryForm() {
@@ -74,20 +73,22 @@ export default function CategoryForm() {
 
     const handleSave = () => {
         console.log("Speichern:", selected);
-        // Hier kommt dein fetch-Aufruf zum Speichern hin
+        // Hier kommt fetch-Aufruf zum Speichern
     };
+
+    const iconMap = {};
+    interests.forEach((item) => {
+        iconMap[item.name] = item.icon;
+    });
 
     return (
         <>
-        <div className="position-relative min-vh-100 overflow-hidden">
             {/* Header */}
             <div
-                className="bg-blue text-white px-4 py-4"
-                style={{
-                    height: "50vh",
-                    borderRadius: "0 0 108px 37px"
-                }}
+                className="bg-blue text-white px-4 py-4 fixed-top"
+                style={{ borderRadius: '0 0 37px 37px', zIndex: 1000 }}
             >
+
                 <header className="d-flex justify-content-between align-items-center">
                     <h1 className="fw-bold m-0">Deine Interessen</h1>
 
@@ -98,6 +99,7 @@ export default function CategoryForm() {
                 </header>
             </div>
 
+            <main>
             {/* Zentrale Inhalts-Karte */}
             <div className="content-card">
                 {/* Scrollbares Grid für die Kategorien */}
@@ -111,24 +113,24 @@ export default function CategoryForm() {
                             onClick={() => toggleCategory(category.name)}
                         >
                             {/* Dynamisches Icon-Mapping */}
-                            {interests[category.name] || interests["Default"]}
+                            {iconMap[category.name] || <Palette/>}
                             <span>{category.name}</span>
                         </button>
                     ))}
-                </div>
 
-                {/* Speichern-Button am unteren Rand der Karte */}
-                <button
-                    type="button"
-                    onClick={handleSave}
-                    className="btn btn-orange w-100 rounded-pill mt-3 border-0 d-flex justify-content-center align-items-center" style={{
-                    padding: "12px",
+                    {/* Speichern-Button am unteren Rand der Karte */}
+                    <button
+                        type="button"
+                        onClick={handleSave}
+                        className="btn btn-orange w-100 rounded-pill mt-3 border-0 d-flex justify-content-center align-items-center" style={{
+                        padding: "12px",
                     }}
-                >
-                    <img src="save.svg" width="20" height="20" alt=""/>
-                </button>
+                    >
+                        <img src="save.svg" width="20" height="20" alt=""/>
+                    </button>
+                </div>
             </div>
-        </div>
+            </main>
         <Navbar/>
         </>
     );
