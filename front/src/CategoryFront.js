@@ -23,29 +23,78 @@ import Scrollspy from "bootstrap/js/src/scrollspy";
 
 
 const interests = [
-    { name: "Filme", icon: <Film /> },
-    { name: "Lesen", icon: <Book /> },
-    { name: "Fotografie", icon: <Camera /> },
-    { name: "Reisen", icon: <Suitcase2 /> },
-    { name: "Kaffee", icon: <Cup /> },
-    { name: "Basketball", icon: <Basket /> },
-    { name: "Musik", icon: <MusicNoteBeamed /> },
-    { name: "Singen", icon: <Mic /> },
-    { name: "Gaming", icon: <Controller /> },
-    { name: "Shoppen", icon: <Bag /> },
-    { name: "Picknicken", icon: <Sun /> },
-    { name: "Werken", icon: <Tools /> },
-    { name: "Lorem", icon: <Palette /> },
-    { name: "Lorem", icon: <Palette /> },
-    { name: "Lorem", icon: <Palette /> },
+    {
+        id: 1,
+        name: "Filme",
+        description: "Alles rund um das Thema Kino und Filme schauen."
+    },
+    {
+        id: 2,
+        name: "Lesen",
+        description: "Bücher, Magazine und Artikel lesen."
+    },
+    {
+        id: 3,
+        name: "Fotografie",
+        description: "Momente mit der Kamera festhalten."
+    },
+    {
+        id: 4,
+        name: "Reisen",
+        description: "Neue Orte und Kulturen entdecken."
+    },
+    {
+        id: 5,
+        name: "Kaffee",
+        description: "Gemütlich einen Kaffee trinken und plaudern."
+    },
+    {
+        id: 6,
+        name: "Basketball",
+        description: "Ein paar Körbe werfen oder ein Spiel anschauen."
+    },
+    {
+        id: 7,
+        name: "Musik",
+        description: "Konzerte besuchen oder selbst Musik machen."
+    },
+    {
+        id: 8,
+        name: "Singen",
+        description: "Karaoke oder gemeinsames Singen."
+    },
+    {
+        id: 9,
+        name: "Gaming",
+        description: "Videospiele auf Konsole oder PC."
+    },
+    {
+        id: 10,
+        name: "Shoppen",
+        description: "Ein Einkaufsbummel durch die Stadt."
+    },
+    {
+        id: 11,
+        name: "Picknicken",
+        description: "Im Park entspannen mit gutem Essen."
+    },
+    {
+        id: 12,
+        name: "Werken",
+        description: "Heimwerken, Basteln und Bauen."
+    },
+    {
+        id: 13,
+        name: "Essen",
+        description: "Neue Restaurants ausprobieren oder gemeinsam kochen."
+    }
 ];
-
 
 
 export default function CategoryForm() {
 
     const [selected, setSelected] = useState([]);
-    const [categories, setCategories] = useState([]);
+    const [categories, setCategories] = useState(interests);
 
     {/*Holen der Daten (Kategorien) von der Datenbank*/}
     //https://dev.to/antdp425/react-fetch-data-from-api-with-useeffect-27le
@@ -99,36 +148,38 @@ export default function CategoryForm() {
                 </header>
             </div>
 
-            <main>
+            <main style={{marginTop: '100px'}}>
             {/* Zentrale Inhalts-Karte */}
-            <div className="content-card">
+            <div className="px-4 py-4 mb-5">
                 {/* Scrollbares Grid für die Kategorien */}
-                <div className="category-grid">
+                <div className="row">
                     {categories.map((category) => (
-                        <button
-                            key={category.id} // Besser die ID aus der DB als den Index verwenden
-                            className={`category-button ${
-                                selected.includes(category.name) ? "selected" : ""
-                            }`}
-                            onClick={() => toggleCategory(category.name)}
-                        >
-                            {/* Dynamisches Icon-Mapping */}
-                            {iconMap[category.name] || <Palette/>}
-                            <span>{category.name}</span>
-                        </button>
+                        <div className="col-4 mb-3" key={category.id}>
+                            <button
+                                style={{borderRadius: '10px'}}
+                                className={`category-button w-100 py-3 rounded-4 d-flex flex-column align-items-center justify-content-center border-0  ${
+                                    selected.includes(category.name) ? "bg-blue text-white" : "bg-info text-white"
+                                }`}
+                                onClick={() => toggleCategory(category.name)}
+                            >
+                                <div className="mb-2 ">
+                                    {iconMap[category.name] || <Sun size={28} />}
+                                </div>
+                                <span>{category.name}</span>
+                            </button>
+                        </div>
                     ))}
-
-                    {/* Speichern-Button am unteren Rand der Karte */}
-                    <button
-                        type="button"
-                        onClick={handleSave}
-                        className="btn btn-orange w-100 rounded-pill mt-3 border-0 d-flex justify-content-center align-items-center" style={{
-                        padding: "12px",
-                    }}
-                    >
-                        <img src="save.svg" width="20" height="20" alt=""/>
-                    </button>
                 </div>
+                {/* Speichern-Button am unteren Rand der Karte */}
+                <button
+                    type="button"
+                    onClick={handleSave}
+                    className="btn btn-orange w-100 rounded-pill mt-3 border-0 d-flex justify-content-center align-items-center" style={{
+                    padding: "12px",
+                }}
+                >
+                    <img src="save.svg" width="20" height="20" alt=""/>
+                </button>
             </div>
             </main>
         <Navbar/>
