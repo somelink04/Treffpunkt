@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import "bootstrap-icons/font/bootstrap-icons.css";
-import Button from 'react-bootstrap/Button'; // Import React-Bootstrap Button
-import Row from 'react-bootstrap/Row'; // Import React-Bootstrap Row
-import Col from 'react-bootstrap/Col'; // Import React-Bootstrap Col
-import Container from 'react-bootstrap/Container';
+import Navbar from "./NavbarComp";
+import {Link} from "react-router-dom";
 import {
     ArrowLeft,
     Camera,
@@ -74,43 +72,64 @@ export default function CategoryForm() {
         );
     };
 
+    const handleSave = () => {
+        console.log("Speichern:", selected);
+        // Hier kommt dein fetch-Aufruf zum Speichern hin
+    };
+
     return (
-        <Container>
-            <Row className="bg-primary text-white align-items-center py-2 px-3">
-                <Col xs="auto">
-                    <Button variant="primary">
-                        <ArrowLeft />
-                    </Button>
-                </Col>
-                <Col xs="auto">
-                    {/* leer oder Platzhalter für Ausrichtung */}
-                </Col>
-                <Col className="text-center fw-bold">
-                    Deine Interessen
-                </Col>
-            </Row>
-            {/* Spalten und Zeilen mit Kategorien Dynamisch erzeugen */}
-            <Row className="g-3 mt-4">
-                {categories.map((item, idx) => (
-                    <Col xs={4} key={idx}>
+        <>
+        <div className="position-relative min-vh-100 overflow-hidden">
+            {/* Header */}
+            <div
+                className="bg-blue text-white px-4 py-4"
+                style={{
+                    height: "50vh",
+                    borderRadius: "0 0 108px 37px"
+                }}
+            >
+                <header className="d-flex justify-content-between align-items-center">
+                    <h1 className="fw-bold m-0">Deine Interessen</h1>
+
+                    <div className="d-flex gap-3">
+                        <Link to="/calendar"><img src="calendar.svg" width="25" height="25" alt=""/></Link>
+                        <Link to="/categories"><img src="filter.svg" width="25" height="25" alt=""/></Link>
+                    </div>
+                </header>
+            </div>
+
+            {/* Zentrale Inhalts-Karte */}
+            <div className="content-card">
+                {/* Scrollbares Grid für die Kategorien */}
+                <div className="category-grid">
+                    {categories.map((category) => (
                         <button
-                            className={`btn w-100 py-3 mb-2 text-white rounded ${
-                                selected.includes(item.name) ? "bg-primary" : "bg-info"
+                            key={category.id} // Besser die ID aus der DB als den Index verwenden
+                            className={`category-button ${
+                                selected.includes(category.name) ? "selected" : ""
                             }`}
-                            onClick={() => toggleCategory(item.name)}
+                            onClick={() => toggleCategory(category.name)}
                         >
-                            {item.icon}
-                            <span className="d-block mt-1">{item.name}</span>
+                            {/* Dynamisches Icon-Mapping */}
+                            {interests[category.name] || interests["Default"]}
+                            <span>{category.name}</span>
                         </button>
-                    </Col>
-                ))}
-            </Row>
-            {/* Speichern-Button */}
-            <Row className="text-center mt-4">
-                <Button className="btn btn-warning rounded-pill px-5">
-                    <i className="bi bi-save" /> Speichern
-                </Button>
-            </Row>
-        </Container>
+                    ))}
+                </div>
+
+                {/* Speichern-Button am unteren Rand der Karte */}
+                <button
+                    type="button"
+                    onClick={handleSave}
+                    className="btn btn-orange w-100 rounded-pill mt-3 border-0 d-flex justify-content-center align-items-center" style={{
+                    padding: "12px",
+                    }}
+                >
+                    <img src="save.svg" width="20" height="20" alt=""/>
+                </button>
+            </div>
+        </div>
+        <Navbar/>
+        </>
     );
 }
