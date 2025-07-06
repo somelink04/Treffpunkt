@@ -21,7 +21,7 @@ import {
 import Scrollspy from "bootstrap/js/src/scrollspy";
 
 
-
+/*
 const interests = [
     {
         id: 1,
@@ -89,12 +89,13 @@ const interests = [
         description: "Neue Restaurants ausprobieren oder gemeinsam kochen."
     }
 ];
+ */
 
 
 export default function CategoryForm() {
 
     const [selected, setSelected] = useState([]);
-    const [categories, setCategories] = useState(interests);
+    const [categories, setCategories] = useState([]);
 
     {/*Holen der Daten (Kategorien) von der Datenbank*/}
     //https://dev.to/antdp425/react-fetch-data-from-api-with-useeffect-27le
