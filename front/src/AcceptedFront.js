@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from "./NavbarComp";
 
+/*
 const testData = [
     {
         id: "1",
@@ -43,6 +44,7 @@ const testData = [
         ]
     }
 ];
+ */
 
 export default function AcceptedEvents() {
     const [events, setEvents] = useState([]);
@@ -83,6 +85,7 @@ export default function AcceptedEvents() {
 
     const handleCancel = async (id) => {
         try {
+            /*
             const token = localStorage.getItem('token');
             const response = await fetch('/accepted', {
                 method: 'POST',
@@ -95,6 +98,8 @@ export default function AcceptedEvents() {
             if (!response.ok) {
                 throw new Error('Fehler beim Absagen des Events');
             }
+             */
+
             // Entferne das Event anhand der String-ID
             setEvents(prev => prev.filter(event => event.id.toString() !== id.toString()));
         } catch (error) {

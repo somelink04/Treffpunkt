@@ -3,6 +3,7 @@ import Navbar from "./NavbarComp";
 import { Link } from "react-router-dom";
 
 /*Antwort nach fetch("/" methode: GET )*/
+/*
 const testSlides = [
     {
         id: 1,
@@ -26,6 +27,7 @@ const testSlides = [
         date: "03.12.2025"
     }
 ];
+ */
 
 export default function DashboardForm() {
     const mapSlides = (slides) => {
@@ -127,7 +129,7 @@ export default function DashboardForm() {
                         className="card shadow mx-auto pt-5 d-flex flex-column align-items-center justify-content-center"
                         style={{ borderRadius: "23px", width: "90%", maxWidth: "340px", height: "480px" }}
                     >
-                        <h1 className="display-1 fw-bold mt-4 mb-3">{slide.name}</h1>
+                        <h1 className="display-1 fw-bold mt-4 mb-3">{slide.name}.</h1>
                         <div>
                             <div className="d-flex gap-2 mb-2">
                                 <img src="calendar-blue.svg" width="24" height="24" alt="" />

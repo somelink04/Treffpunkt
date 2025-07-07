@@ -143,9 +143,9 @@ VALUES (1, 'männlich'),
 
 INSERT INTO CATEGORY (CATEGORY_ID, CATEGORY_NAME, CATEGORY_DESCRIPTION, CATEGORY_ACCEPTION_RATIO, CATEGORY_MIN)
 VALUES (1, 'Wandern', 'Gemeinsame Wanderungen in der Natur, geeignet für Gruppen.', 0.8, 2),
-(2, 'Kochabend', 'Zusammen kochen und neue Rezepte ausprobieren.', 0.9, 2),
-(3, 'Spieleabend', 'Brett- oder Kartenspiele in geselliger Runde.', 0.85, 3),
-(4, 'Filmabend', 'Gemeinsames Anschauen von Filmen oder Serien.', 0.7, 2),
+(2, 'Kochen', 'Zusammen kochen und neue Rezepte ausprobieren.', 0.9, 2),
+(3, 'Brettspiele', 'Brett- oder Kartenspiele in geselliger Runde.', 0.85, 3),
+(4, 'Filme', 'Gemeinsames Anschauen von Filmen oder Serien.', 0.7, 2),
 (5, 'Grillen', 'Zusammen Grillen und die Sonne genießen.', 0.75, 4),
 (6, 'Basteln', 'Kreatives Gestalten und gemeinsames Basteln.', 0.65, 2),
 (7, 'Städtetrip', 'Kurztrips in nahegelegene Städte zur Erkundung.', 0.6, 2),
@@ -158,18 +158,18 @@ VALUES (1, 'Wandern', 'Gemeinsame Wanderungen in der Natur, geeignet für Gruppe
 (14, 'Tischtennis', 'Schnelles Spiel für zwei oder vier Personen.', 0.75, 2),
 (15, 'Badminton', 'Leicht zugängliches Rückschlagspiel im Freien oder in der Halle.', 0.78, 2),
 (16, 'Klettern', 'Indoor- oder Outdoor-Klettern für sportlich Aktive.', 0.65, 2),
-(17, 'Yoga im Park', 'Gemeinsame Entspannung und Dehnung in der Natur.', 0.8, 3),
+(17, 'Yoga', 'Gemeinsame Entspannung und Dehnung in der Natur.', 0.8, 3),
 (18, 'Fahrradtour', 'Radfahren durch Stadt, Wald oder entlang von Flüssen.', 0.82, 2),
 (19, 'Basketball', 'Teamspiel mit viel Bewegung – auch auf dem Schulhof möglich.', 0.75, 6),
 (20, 'Schwimmen', 'Gemeinsam ins Schwimmbad oder an einen See gehen.', 0.7, 2),
 (21, 'Slacklinen', 'Balance-Übung auf einem gespannten Band, ideal für Parks.', 0.6, 2),
 (22, 'Boccia', 'Präzisionsspiel mit Kugeln, perfekt für draußen und gemütliche Gruppen.', 0.7, 2),
 (23, 'Beerpong', 'Lustiges Trinkspiel mit Bechern und Tischtennisbällen – ideal für Partys.', 0.9, 4),
-(24, 'Kunstabend', 'Besuch von Ausstellungen, Galerien', 0.65, 2),
-(25, 'Theaterabend', 'Gemeinsamer Besuch eines Theaterstücks oder einer Aufführung.', 0.7, 2),
-(26, 'Konzertbesuch', 'Live-Musik erleben – von Klassik bis Rock.', 0.75, 2),
+(24, 'Kunst', 'Besuch von Ausstellungen, Galerien', 0.65, 2),
+(25, 'Theater', 'Gemeinsamer Besuch eines Theaterstücks oder einer Aufführung.', 0.7, 2),
+(26, 'Konzerte', 'Live-Musik erleben – von Klassik bis Rock.', 0.75, 2),
 (27, 'Kinoabend', 'Gemeinsamer Kinobesuch, anschließend evtl. Austausch über den Film.', 0.8, 2),
-(28, 'Museumsbesuch', 'Kultureller Ausflug in ein Museum mit gemeinsamem Rundgang.', 0.6, 2);
+(28, 'Museum', 'Kultureller Ausflug in ein Museum mit gemeinsamem Rundgang.', 0.6, 2);
 
 /*https://pro-bi.de/plz-zu-ort-zu-landkreis-zu-bundesland*/
 INSERT INTO REGION (REGION_ID, REGION_NAME, REGION_ZIP, REGION_DISTRICT)

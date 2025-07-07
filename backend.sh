@@ -16,12 +16,6 @@ if [ "$1" == "setup" ]; then
   mysql -p --protocol=TCP -u root < create_testdata.sql
   cd ..
 
-  # Front build
-  cd front || return 1
-  npm install
-  npm run build
-  cd ..
-
   # Back Setup
   cd back || return 1
   python -m venv .venv
