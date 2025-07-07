@@ -97,7 +97,7 @@ export default function CategoryForm() {
     const [selected, setSelected] = useState([]);
     const [categories, setCategories] = useState([]);
 
-    {/*Holen der Daten (Kategorien) von der Datenbank*/}
+    /*Holen der Daten (Kategorien) von der Datenbank*/
     //https://dev.to/antdp425/react-fetch-data-from-api-with-useeffect-27le
     useEffect(() => {
         fetch("api/settings/categories", {
@@ -111,7 +111,7 @@ export default function CategoryForm() {
             .catch((err) => console.error("Fehler beim Laden der Kategorien:", err));
     }, []);
 
-    {/*Toggle-Funktion*/}
+    /*Toggle-Funktion*/
     {/*https://stackoverflow.com/questions/69497702/how-to-keep-button-highlighted-when-clicked-in-react*/}
     const toggleCategory = (interest) => {
         setSelected((prev) =>
@@ -122,14 +122,19 @@ export default function CategoryForm() {
     };
 
     const handleSave = () => {
-        console.log("Speichern:", selected);
+        const selCategories = selected.map((id) =>
+            categories.find(category => category.id === id)
+        );
+        console.log("Speichern:", selCategories);
         // Hier kommt fetch-Aufruf zum Speichern
     };
 
+    /*
     const iconMap = {};
     interests.forEach((item) => {
         iconMap[item.name] = item.icon;
     });
+    */
 
     return (
         <>
@@ -149,7 +154,7 @@ export default function CategoryForm() {
                 </header>
             </div>
 
-            <main style={{marginTop: '100px'}}>
+            <main style={{marginTop: '100px', marginBottom: '100px'}}>
             {/* Zentrale Inhalts-Karte */}
             <div className="px-4 py-4 mb-5">
                 {/* Scrollbares Grid für die Kategorien */}
@@ -159,12 +164,12 @@ export default function CategoryForm() {
                             <button
                                 style={{borderRadius: '10px'}}
                                 className={`category-button w-100 py-3 rounded-4 d-flex flex-column align-items-center justify-content-center border-0  ${
-                                    selected.includes(category.name) ? "bg-blue text-white" : "bg-info text-white"
+                                    selected.includes(category.id) ? "bg-blue text-white" : "bg-info text-white"
                                 }`}
-                                onClick={() => toggleCategory(category.name)}
+                                onClick={() => toggleCategory(category.id)}
                             >
                                 <div className="mb-2 ">
-                                    {iconMap[category.name] || <Sun size={28} />}
+                                    {/*iconMap[category.name] ||*/ <Sun size={28} />}
                                 </div>
                                 <span>{category.name}</span>
                             </button>
@@ -179,7 +184,7 @@ export default function CategoryForm() {
                     padding: "12px",
                 }}
                 >
-                    <img src="save.svg" width="20" height="20" alt=""/>
+                    Speichern
                 </button>
             </div>
             </main>
